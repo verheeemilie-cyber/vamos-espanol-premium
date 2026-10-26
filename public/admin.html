@@ -1,0 +1,41 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Paco — Administración Premium</title>
+<style>body{margin:0;background:#f6f8f4;color:#143f32;font-family:system-ui,-apple-system,sans-serif}main{max-width:850px;margin:35px auto;padding:0 18px}h1{font-size:28px}section{background:#fff;border:1px solid #d5e5d9;border-radius:17px;padding:22px;margin:20px 0;box-shadow:0 4px 16px #1232}label{display:block;font-weight:700;margin:10px 0 7px}input{padding:12px;width:100%;box-sizing:border-box;border:1px solid #a6bfb0;border-radius:9px;font-size:16px}button{background:#176c50;color:white;border:0;border-radius:9px;padding:12px 15px;margin:8px 6px 8px 0;cursor:pointer;font-weight:700}button:disabled{opacity:.6}button.alt{background:#ecf2eb;color:#184b39;border:1px solid #b9d4c5}button.danger{background:#a53b33}#codeResult{background:#ecf8ef;padding:16px;border-radius:12px;overflow-wrap:anywhere}code{font-size:17px;font-weight:bold}#records{display:grid;gap:10px}.item{border:1px solid #d9e6db;border-radius:12px;padding:12px}.item small{display:block;color:#536d5e}.status{min-height:25px;color:#8c3c2d}.note{font-size:13px;color:#65796d}a{color:#176c50}</style></head><body><main><p><a href="/">← ¡Vamos Español!</a></p><h1>🐆 Paco · Códigos Premium</h1><p>Solo para la administración. Cada cliente recibe un código único; el código completo se muestra <strong>una sola vez</strong>.</p>
+<section><label for="adminKey">Contraseña de administración</label><input type="password" id="adminKey" autocomplete="off" placeholder="VAMOS_ADMIN_SECRET"><p class="note">La contraseña no se guarda en el navegador. Debe coincidir con la variable privada de Netlify.</p></section>
+<section><h2>➕ Crear un código personal</h2><label for="clientLabel">Nombre o referencia del cliente</label><input id="clientLabel" maxlength="100" placeholder="Ej.: Cliente 001 / María"><button id="issue">Generar código</button><div id="codeResult" hidden><p><strong>¡Guarda y envía este código al cliente!</strong></p><code id="newCode"></code><p><button class="alt" id="copy">📋 Copiar código</button></p><small>Se mostrará solo ahora. Si lo pierdes, tendrás que generar otro.</small></div></section>
+<section><h2>📋 Códigos emitidos</h2><button class="alt" id="refresh">Actualizar lista</button><div id="records"></div><p class="note">Puedes desactivar un código o liberar sus 3 dispositivos si el cliente cambia de teléfono.</p></section><p id="status" class="status" role="status" aria-live="polite"></p>
+</main><script>
+const $=id=>document.getElementById(id);let lastCode='';
+function status(msg){$('status').textContent=msg;}
+async function call(action,extra={}){
+ const secret=$('adminKey').value.trim();if(!secret)throw Error('Escribe primero la contraseña de administración.');
+ const res=await fetch('/api/admin',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+secret},body:JSON.stringify({action,...extra}),cache:'no-store'});
+ let data={};try{data=await res.json();}catch(e){}
+ if(!res.ok||!data.ok)throw Error(data.error==='unauthorized'?'Contraseña incorrecta.':data.error==='not_configured'?'Primero configura los secretos en Netlify.':data.error||'Error de conexión.');
+ return data;
+}
+$('issue').onclick=async()=>{
+ const label=$('clientLabel').value.trim();if(!label){status('Escribe el nombre o referencia del cliente.');return;}
+ $('issue').disabled=true;status('Generando código…');
+ try{const data=await call('issue',{label});lastCode=data.code;$('newCode').textContent=lastCode;$('codeResult').hidden=false;status('Código creado. Cópialo antes de salir de la página.');await refresh();}
+ catch(e){status(e.message);}finally{$('issue').disabled=false;}
+};
+$('copy').onclick=async()=>{try{await navigator.clipboard.writeText(lastCode);status('Código copiado.');}catch(e){status('Selecciona el código y cópialo manualmente.');}};
+$('refresh').onclick=refresh;
+async function refresh(){
+ try{const data=await call('list');$('records').replaceChildren();if(!data.records.length){$('records').textContent='Todavía no hay códigos.';return;}
+  for(const record of data.records){
+   const item=document.createElement('div');item.className='item';
+   const heading=document.createElement('strong');heading.textContent=record.label+' · '+(record.revoked?'🔴 Desactivado':'🟢 Activo');item.append(heading);
+   const info=document.createElement('small');info.textContent='Creado: '+record.createdAt.slice(0,10)+' · Dispositivos: '+record.devices+'/3';item.append(info);
+   const reset=document.createElement('button');reset.className='alt';reset.textContent='Liberar dispositivos';reset.onclick=()=>modify('reset',record);item.append(reset);
+   const toggle=document.createElement('button');toggle.className=record.revoked?'alt':'danger';toggle.textContent=record.revoked?'Reactivar':'Desactivar';toggle.onclick=()=>modify(record.revoked?'restore':'revoke',record);item.append(toggle);
+   $('records').append(item);
+  }
+ }catch(e){status(e.message);}
+}
+async function modify(action,record){
+ const msg=action==='reset'?'¿Liberar todos los dispositivos de '+record.label+'?':action==='revoke'?'¿Desactivar el acceso de '+record.label+'?':'¿Reactivar el acceso de '+record.label+'?';
+ if(!confirm(msg))return;
+ try{await call(action,{hash:record.hash});status('Cambio guardado.');await refresh();}catch(e){status(e.message);}
+}
+</script></body></html>

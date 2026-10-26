@@ -1,0 +1,25 @@
+{
+  "name": "¡Vamos Español! — Aprende con Paco",
+  "short_name": "¡Vamos Español!",
+  "description": "Apprends l'espagnol avec Paco, le jaguar du Costa Rica.",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f8f5ed",
+  "theme_color": "#176b50",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
