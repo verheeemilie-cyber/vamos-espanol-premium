@@ -1,0 +1,21 @@
+¡VAMOS ESPAÑOL! V6 — CODES PREMIUM INDIVIDUELS
+
+NE PAS déposer ce dossier directement dans Netlify Drop : les fonctions serveur ne seraient pas installées.
+NE PAS remplacer la version publique avant d'avoir testé ce projet sur un site Netlify distinct.
+
+Cette version conserve les 35 missions, les 3 langues, les dialogues et les XP de V5.
+Chaque code client est créé depuis /admin.html, validé par Netlify Functions et conservé sous forme d'empreinte SHA-256 dans Netlify Blobs.
+Chaque code donne accès à 3 appareils au maximum ; tu peux révoquer un code ou réinitialiser les appareils depuis le tableau de bord.
+Les missions Premium sont servies par une fonction privée après validation, et ne sont plus intégrées dans le HTML public.
+
+DÉPLOIEMENT
+1. Publier le projet complet depuis un dépôt GitHub connecté à un NOUVEAU site Netlify de test (ou avec Netlify CLI).
+2. Dans Netlify > Project configuration > Environment variables, créer deux secrets DISTINCTS :
+   VAMOS_ADMIN_SECRET (mot de passe admin aléatoire d'au moins 32 caractères)
+   VAMOS_TOKEN_SECRET (clé de signature aléatoire d'au moins 32 caractères)
+3. Redéployer le site.
+4. Ouvrir /admin.html, créer un code client, le copier, puis le tester sur la page d'accueil.
+
+IMPORTANT : pas de paiement intégré ni d'envoi automatique par email. Le code doit être envoyé manuellement après encaissement.
+Les XP ne sont pas synchronisés entre appareils. L'accès Premium nécessite Internet au lancement.
+Un code peut être partagé dans la limite de 3 appareils ; une authentification client serait nécessaire pour une protection renforcée.

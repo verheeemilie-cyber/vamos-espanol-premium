@@ -1,0 +1,508 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>¡Vamos Español! — Premium personnel V6</title><style>*{box-sizing:border-box}body{margin:0;background:#f8f5ed;color:#173d33;font:16px Arial,sans-serif}header{background:#153f36;color:#fff;padding:20px;display:flex;justify-content:space-between;align-items:center;gap:8px}h1{font-size:24px;margin:0}small{letter-spacing:1.4px;font-size:10px}.pill{border-radius:25px;background:#ffffff20;padding:12px;font-weight:bold;white-space:nowrap}main{max-width:760px;margin:auto;padding:20px}.hero{border-radius:23px;background:linear-gradient(110deg,#dff1e7,#fff7e8);padding:25px;margin-bottom:18px}.hero h2{margin:10px 0}.hero p{line-height:1.6;color:#5c746a}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.stat{background:white;border:1px solid #e1e4dc;border-radius:15px;text-align:center;padding:15px 3px}.stat strong{display:block;font-size:24px}.stat span{font-size:12px;color:#67786f}.progress{height:11px;border-radius:20px;background:#e1e7e1;margin:18px 0;overflow:hidden}.progress div{height:100%;background:#32a47a;transition:width .3s}.card{background:#fff;border:1px solid #e2e4df;border-radius:18px;padding:19px;margin:12px 0}.card h3{margin:0 0 12px}button{font:inherit;border:0;border-radius:12px;padding:12px 17px;background:#17634e;color:white;font-weight:bold;cursor:pointer}button:disabled{opacity:.6;cursor:default}.answer{width:100%;display:block;text-align:left;background:#f0f6f1;color:#173d33;border:1px solid #d9e6de;margin:8px 0}.answer.good{background:#c8efd9}.answer.bad{background:#f9d7d4}.hidden{display:none!important}.meta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-weight:bold;margin-bottom:15px}.premium{background:#153f36;color:white;border-radius:20px;padding:24px;margin-top:24px}.premium p{line-height:1.6}footer{text-align:center;color:#7d8c84;font-size:12px;margin:20px}.muted{color:#6c7f74}.speech{background:#dbece3;color:#154d3b}.words{display:flex;flex-wrap:wrap;gap:8px;min-height:45px;padding:10px;border:1px dashed #9cbaa9;border-radius:12px}.word{background:#e3efe8;color:#173d33}.selected{background:#d6e9de;padding:10px;border-radius:10px;min-height:45px;margin:10px 0}.row{display:flex;gap:8px;flex-wrap:wrap}.premiumLock{border-color:#e5d6ad;background:#fffbf2}.lessonTip{background:#eef7f1;padding:12px;border-radius:12px}.noteBadge{font-size:12px;color:#805e19;font-weight:bold}.progressDetails{font-size:12px;color:#5f796e;margin-top:-10px;margin-bottom:18px}
+.langSelect{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.langSelect button{background:#fff;color:#173d33;border:2px solid #d9e6de;padding:10px 13px}.langSelect button.active{border-color:#17634e;background:#dff1e7}.langNote{font-size:13px;color:#5c746a;margin:0 0 15px}.quizNav{margin:0 0 15px}.quizNav button{background:#e3efe8;color:#175541}button:focus-visible{outline:3px solid #c47f26;outline-offset:2px}.progress{min-height:11px}.lessonTip{display:block}.premium button{background:#e7f5e9;color:#164d3c}@media (max-width:480px){header{padding:16px}main{padding:12px}.hero{padding:20px}.card{padding:16px}h1{font-size:21px}.langSelect button{flex:1;padding:10px 5px;font-size:13px}}.premiumCodeBox{padding:16px;background:#ffffff13;border:1px solid #ffffff50;border-radius:14px;margin-top:17px}.premiumCodeBox label{display:block;font-weight:700;margin-bottom:10px}.premiumCodeRow{display:flex;gap:8px;flex-wrap:wrap}.premiumCodeRow input{flex:1;min-width:160px;max-width:100%;border:2px solid #cce2d5;border-radius:10px;background:#fff;color:#173d33;padding:13px 12px;font:inherit;letter-spacing:.3px;text-transform:uppercase}.premiumCodeRow button{background:#e7f5e9;color:#164d3c}.premiumCodeRow input:focus{outline:3px solid #e8cc7c;outline-offset:2px}.premiumCodeHelp{font-size:12px;opacity:.85;margin-top:9px;margin-bottom:0}.premiumCodeStatus{margin:10px 0 0;font-size:14px;font-weight:700}.premiumCodeStatus.success{color:#d7ffd8}.premiumCodeStatus.error{color:#ffd0ca}@media(max-width:420px){.premiumCodeRow>*{width:100%}.premiumCodeRow input{min-width:0}}.typingForm{display:flex;gap:10px;flex-wrap:wrap}.typingForm input{flex:1;min-width:170px;padding:13px;border:2px solid #bdd6c6;border-radius:12px;font-size:16px}.xpReward{color:#148a59;font-size:1.1rem} 
+/* Paco Challenge Edition: larger targets, feedback and 3-stage lesson progress */
+.missionTrack{height:10px;background:#e6eee8;border-radius:20px;overflow:hidden;margin:9px 0 12px}
+.missionTrack>div{height:100%;width:0;background:linear-gradient(90deg,#2b9b71,#edb448);transition:width .3s}
+.challengeStage{display:inline-flex;gap:8px;align-items:center;background:#e6f2ea;color:#14533d;font-size:13px;font-weight:700;border-radius:100px;padding:8px 12px;margin-bottom:12px}
+#prompt{font-size:clamp(19px,4.5vw,26px);line-height:1.38;margin:10px 0 20px}
+#answers{min-height:105px}.answer{min-height:54px;line-height:1.35;transition:background .16s,transform .16s}
+.answer:not(:disabled):active,.word:not(:disabled):active{transform:scale(.985)}
+#feedback{font-weight:700;line-height:1.6;min-height:30px}
+.feedbackTry{color:#ab6226}.feedbackGood{color:#15754e}.feedbackBad{color:#ad4239}
+.challengeHelp{font-size:14px;color:#5a766a;margin:9px 0}.soundRow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:13px}
+.soundRow button{flex:1;min-width:130px;min-height:50px}
+.typingForm{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+.typingForm input{flex:1;min-width:190px;border:2px solid #abc9b6;border-radius:13px;font:inherit;padding:14px;color:#173d33;background:#fff}
+.typingForm button{width:auto;min-width:125px;text-align:center;background:#17634e;color:#fff}
+.typingForm input:focus-visible{outline:3px solid #edb448}
+.wordRow{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.wordRow button{min-height:46px}.selected{font-size:18px;line-height:1.4}
+.matchGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:15px 0}
+.matchCol{display:flex;flex-direction:column;gap:9px}
+.matchCol button{min-height:65px;background:#edf5ef;color:#173d33;border:2px solid #d6e8dd;white-space:normal;overflow-wrap:anywhere}
+.matchCol button.active{background:#fff1cc;border-color:#d4a342}
+.matchCol button.matched{background:#d1edda;color:#1b714c;border-color:#8cc6a3;opacity:.62}
+.matchCol button.bad{background:#ffdfd9;border-color:#cb6a59}
+.challengeBadge{font-size:12px;display:inline-block;background:#fff4d9;color:#8b5e14;padding:5px 10px;border-radius:12px;margin:4px 0}
+@media(max-width:480px){.matchCol button{padding:10px 8px;font-size:14px}.typingForm button{flex:1}.soundRow button{min-width:110px}}
+
+/* Paco Dialogue Edition — responsive conversation bubbles and distinct challenge types */
+.dialogueScene{background:#f4faf6;border:1px solid #cfe7d8;border-radius:18px;padding:14px;margin:10px 0 18px;}
+.sceneTitle{font-size:12px;letter-spacing:.07em;text-transform:uppercase;font-weight:800;color:#287654;margin-bottom:10px}
+.dialogueBubble{display:flex;gap:9px;align-items:flex-start;margin:9px 0}
+.dialogueBubble.male{flex-direction:row-reverse}
+.dialogueBubble .avatar{flex:none;width:38px;height:38px;border-radius:50%;background:#f3d8ae;display:grid;place-items:center;font-size:23px}
+.dialogueBubble.male .avatar{background:#cde4f7}
+.dialogueBubble button{display:block;max-width:85%;text-align:left;line-height:1.5;white-space:normal;overflow-wrap:anywhere;background:white;color:#21473c;border:1px solid #d7e6dd;border-radius:14px 14px 14px 4px;padding:12px 14px;font-size:15px;box-shadow:0 2px 5px #173d330c}
+.dialogueBubble.male button{border-radius:14px 14px 4px 14px;background:#e9f4fb}
+.dialogueBubble button:focus-visible{outline:3px solid #ffbd61}
+.dialogueHint{font-size:13px;color:#547667;margin-top:6px}
+.voiceStudio{background:#eaf4ed;border:1px solid #c8e2d0;border-radius:18px;padding:15px;margin:0 0 18px}.voiceStudio h3{margin:0 0 5px;font-size:18px}.voiceStudio p{font-size:13px;color:#526e5e;margin:0 0 12px}.voiceStudioGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.voiceStudioGrid label{font-size:14px;font-weight:700;display:flex;flex-direction:column;gap:7px}.voiceStudioGrid select{max-width:100%;min-width:0;border:1px solid #abc9b6;border-radius:9px;background:#fff;padding:10px;font-size:13px}.voiceStudioGrid button{padding:10px;font-size:13px;background:#19654f;color:#fff}.voiceNotice{color:#5b7165;font-size:12px;margin-top:20px;line-height:1.5}
+.challengeStage{max-width:100%;line-height:1.3}
+#prompt{overflow-wrap:anywhere}
+@media(max-width:420px){.voiceStudioGrid{grid-template-columns:1fr}.dialogueBubble button{max-width:80%;font-size:14px}.dialogueScene{padding:10px}}
+</style><link rel="manifest" href="./manifest.webmanifest"><meta name="theme-color" content="#176b50"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="apple-touch-icon" href="./icon-180.png"></head><body>
+<header><div><h1>🐆 ¡Vamos Español!</h1><small>APRENDE · HABLA · EXPLORA · DIÁLOGOS V5</small></div><div class="pill">⚡ <span id="xp">0</span> XP</div></header>
+<main>
+<div class="langSelect" role="group" aria-label="Choose language / Choisir la langue / Sprache wählen">
+<button type="button" data-lang="fr">🇫🇷 Français</button><button type="button" data-lang="en">🇬🇧 English</button><button type="button" data-lang="de">🇩🇪 Deutsch</button>
+</div>
+<p id="langNote" class="langNote" aria-live="polite"></p><section id="voiceStudio" class="voiceStudio"><h3 id="voiceStudioTitle"></h3><p id="voiceStudioStatus" aria-live="polite"></p><div class="voiceStudioGrid"><label><span id="femaleLabel"></span><select id="femaleVoice"></select><button type="button" id="testFemale">🔊 Test</button></label><label><span id="maleLabel"></span><select id="maleVoice"></select><button type="button" id="testMale">🔊 Test</button></label></div></section>
+<section class="hero"><div style="font-size:60px">🐆</div><b id="companion"></b><h2 id="hello"></h2><p id="intro"></p></section>
+<div class="stats"><div class="stat"><strong id="xp2">0</strong><span>XP</span></div><div class="stat"><strong id="done">0/10</strong><span id="doneLabel"></span></div><div class="stat"><strong>A1</strong><span id="beginner"></span></div></div>
+<div class="progress" role="progressbar" aria-label="Mission progress"><div id="bar"></div></div>
+<section id="lessonsArea"><h2 id="yourMissions"></h2><p id="missionSummary" class="muted"></p><div id="lessons"></div></section>
+<section id="quiz" class="card hidden"><div class="quizNav"><button type="button" id="backToLessons"></button></div><div id="meta" class="meta"></div><div class="missionTrack" role="progressbar" aria-label="Exercise progress"><div id="missionTrackBar"></div></div><div id="challengeStage" class="challengeStage"></div><div id="dialogueScene" class="dialogueScene hidden"></div><p id="lessonTip" class="lessonTip hidden"></p><h2 id="prompt"></h2><div id="answers"></div><p id="feedback" aria-live="polite"></p><button id="next" class="hidden"></button></section>
+<section class="premium"><h2 id="premiumHeader"></h2><p id="premiumDescription"></p><div id="premiumCodeBox" class="premiumCodeBox"><label id="premiumCodeLabel" for="premiumCode"></label><form id="premiumCodeForm" class="premiumCodeRow"><input id="premiumCode" type="text" name="premiumCode" inputmode="text" autocapitalize="characters" spellcheck="false" autocomplete="off" maxlength="35" required aria-describedby="premiumCodeHelp"><button id="redeemPremium" type="submit"></button></form><p id="premiumCodeHelp" class="premiumCodeHelp"></p><p id="premiumCodeStatus" class="premiumCodeStatus" role="status" aria-live="polite"></p></div></section>
+<footer id="footerText"></footer><p id="voiceNotice" class="voiceNotice"></p>
+</main><script>let lessons=[{"title":"Salutations","icon":"👋","pairs":[{"fr":"Bonjour","es":"Hola","en":"Hello","de":"Hallo"},{"fr":"Bonsoir","es":"Buenas noches","en":"Good evening","de":"Guten Abend"},{"fr":"Au revoir","es":"Adiós","en":"Goodbye","de":"Auf Wiedersehen"},{"fr":"Merci","es":"Gracias","en":"Thank you","de":"Danke"},{"fr":"S'il vous plaît","es":"Por favor","en":"Please","de":"Bitte"},{"fr":"De rien","es":"De nada","en":"You're welcome","de":"Gern geschehen"},{"fr":"À bientôt","es":"Hasta pronto","en":"See you soon","de":"Bis bald"},{"fr":"Comment ça va ?","es":"¿Cómo estás?","en":"How are you?","de":"Wie geht es dir?"},{"fr":"Très bien","es":"Muy bien","en":"Very well","de":"Sehr gut"},{"fr":"Excusez-moi","es":"Disculpe","en":"Excuse me","de":"Entschuldigen Sie"}],"title_en":"Greetings","title_de":"Begrüßungen"},{"title":"Se présenter","icon":"🗣️","pairs":[{"fr":"Je m'appelle Ana","es":"Me llamo Ana","en":"My name is Ana","de":"Ich heiße Ana"},{"fr":"Je suis français","es":"Soy francés","en":"I am French (male)","de":"Ich bin Franzose"},{"fr":"Je suis française","es":"Soy francesa","en":"I am French (female)","de":"Ich bin Französin"},{"fr":"Je viens de France","es":"Vengo de Francia","en":"I come from France","de":"Ich komme aus Frankreich"},{"fr":"Comment t'appelles-tu ?","es":"¿Cómo te llamas?","en":"What's your name?","de":"Wie heißt du?"},{"fr":"Enchanté","es":"Mucho gusto","en":"Nice to meet you","de":"Freut mich"},{"fr":"J'ai trente ans","es":"Tengo treinta años","en":"I am thirty years old","de":"Ich bin dreißig Jahre alt"},{"fr":"Je parle un peu espagnol","es":"Hablo un poco de español","en":"I speak a little Spanish","de":"Ich spreche ein wenig Spanisch"},{"fr":"Je ne comprends pas","es":"No entiendo","en":"I don't understand","de":"Ich verstehe nicht"},{"fr":"Pouvez-vous répéter ?","es":"¿Puede repetir?","en":"Could you repeat that?","de":"Können Sie das wiederholen?"}],"title_en":"Introducing yourself","title_de":"Sich vorstellen"},{"title":"Au café","icon":"☕","pairs":[{"fr":"Un café","es":"Un café","en":"A coffee","de":"Ein Kaffee"},{"fr":"Un thé","es":"Un té","en":"A tea","de":"Ein Tee"},{"fr":"De l'eau","es":"Agua","en":"Water","de":"Wasser"},{"fr":"Sans sucre","es":"Sin azúcar","en":"Without sugar","de":"Ohne Zucker"},{"fr":"Avec du lait","es":"Con leche","en":"With milk","de":"Mit Milch"},{"fr":"L'addition, s'il vous plaît","es":"La cuenta, por favor","en":"The bill, please","de":"Die Rechnung, bitte"},{"fr":"C'est délicieux","es":"Está delicioso","en":"It's delicious","de":"Es ist köstlich"},{"fr":"Je voudrais un jus","es":"Quisiera un jugo","en":"I would like a juice","de":"Ich hätte gern einen Saft"},{"fr":"Une table pour deux","es":"Una mesa para dos","en":"A table for two","de":"Ein Tisch für zwei"},{"fr":"Combien ça coûte ?","es":"¿Cuánto cuesta?","en":"How much does it cost?","de":"Wie viel kostet das?"}],"title_en":"At the café","title_de":"Im Café"},{"title":"Se déplacer","icon":"🚌","pairs":[{"fr":"Où est la gare ?","es":"¿Dónde está la estación?","en":"Where is the station?","de":"Wo ist der Bahnhof?"},{"fr":"À gauche","es":"A la izquierda","en":"To the left","de":"Nach links"},{"fr":"À droite","es":"A la derecha","en":"To the right","de":"Nach rechts"},{"fr":"Tout droit","es":"Todo recto","en":"Straight ahead","de":"Geradeaus"},{"fr":"Un billet","es":"Un boleto","en":"A ticket","de":"Eine Fahrkarte"},{"fr":"Le bus","es":"El autobús","en":"The bus","de":"Der Bus"},{"fr":"Le taxi","es":"El taxi","en":"The taxi","de":"Das Taxi"},{"fr":"Je suis perdu","es":"Estoy perdido","en":"I am lost","de":"Ich habe mich verirrt"},{"fr":"C'est loin ?","es":"¿Está lejos?","en":"Is it far?","de":"Ist es weit?"},{"fr":"Arrêtez ici","es":"Pare aquí","en":"Stop here","de":"Halten Sie hier"}],"title_en":"Getting around","title_de":"Unterwegs"},{"title":"À l'hôtel","icon":"🏨","pairs":[{"fr":"J'ai une réservation","es":"Tengo una reserva","en":"I have a reservation","de":"Ich habe eine Reservierung"},{"fr":"Une chambre","es":"Una habitación","en":"A room","de":"Ein Zimmer"},{"fr":"La clé","es":"La llave","en":"The key","de":"Der Schlüssel"},{"fr":"Le petit-déjeuner","es":"El desayuno","en":"Breakfast","de":"Das Frühstück"},{"fr":"À quelle heure ?","es":"¿A qué hora?","en":"At what time?","de":"Um wie viel Uhr?"},{"fr":"Il y a du Wi-Fi ?","es":"¿Hay wifi?","en":"Is there Wi-Fi?","de":"Gibt es WLAN?"},{"fr":"Une nuit","es":"Una noche","en":"One night","de":"Eine Nacht"},{"fr":"Deux personnes","es":"Dos personas","en":"Two people","de":"Zwei Personen"},{"fr":"La salle de bain","es":"El baño","en":"The bathroom","de":"Das Badezimmer"},{"fr":"Je voudrais payer","es":"Quisiera pagar","en":"I would like to pay","de":"Ich möchte bezahlen"}],"title_en":"At the hotel","title_de":"Im Hotel"},{"title":"À la plage","icon":"🏖️","pairs":[{"fr":"La plage","es":"La playa","en":"The beach","de":"Der Strand"},{"fr":"La mer","es":"El mar","en":"The sea","de":"Das Meer"},{"fr":"Le soleil","es":"El sol","en":"The sun","de":"Die Sonne"},{"fr":"Il fait chaud","es":"Hace calor","en":"It's hot","de":"Es ist heiß"},{"fr":"Il pleut","es":"Llueve","en":"It's raining","de":"Es regnet"},{"fr":"Nager","es":"Nadar","en":"To swim","de":"Schwimmen"},{"fr":"Une serviette","es":"Una toalla","en":"A towel","de":"Ein Handtuch"},{"fr":"De la crème solaire","es":"Protector solar","en":"Sunscreen","de":"Sonnencreme"},{"fr":"Attention !","es":"¡Cuidado!","en":"Watch out!","de":"Vorsicht!"},{"fr":"Où peut-on nager ?","es":"¿Dónde se puede nadar?","en":"Where can we swim?","de":"Wo kann man schwimmen?"}],"title_en":"At the beach","title_de":"Am Strand"},{"title":"Faire des achats","icon":"🛍️","pairs":[{"fr":"Le marché","es":"El mercado","en":"The market","de":"Der Markt"},{"fr":"C'est trop cher","es":"Es demasiado caro","en":"It's too expensive","de":"Das ist zu teuer"},{"fr":"Moins cher","es":"Más barato","en":"Cheaper","de":"Günstiger"},{"fr":"Je regarde seulement","es":"Solo estoy mirando","en":"I'm just looking","de":"Ich schaue mich nur um"},{"fr":"Je le prends","es":"Me lo llevo","en":"I'll take it","de":"Ich nehme es"},{"fr":"En espèces","es":"En efectivo","en":"In cash","de":"Bar"},{"fr":"Par carte","es":"Con tarjeta","en":"By card","de":"Mit Karte"},{"fr":"Avez-vous une autre taille ?","es":"¿Tiene otra talla?","en":"Do you have another size?","de":"Haben Sie eine andere Größe?"},{"fr":"Combien ?","es":"¿Cuánto?","en":"How much?","de":"Wie viel?"},{"fr":"Un souvenir","es":"Un recuerdo","en":"A souvenir","de":"Ein Souvenir"}],"title_en":"Shopping","title_de":"Einkaufen"},{"title":"Nature & aventures","icon":"🌿","pairs":[{"fr":"La forêt","es":"El bosque","en":"The forest","de":"Der Wald"},{"fr":"La cascade","es":"La catarata","en":"The waterfall","de":"Der Wasserfall"},{"fr":"Un sentier","es":"Un sendero","en":"A trail","de":"Ein Wanderweg"},{"fr":"Un singe","es":"Un mono","en":"A monkey","de":"Ein Affe"},{"fr":"Un paresseux","es":"Un perezoso","en":"A sloth","de":"Ein Faultier"},{"fr":"Un guide","es":"Un guía","en":"A guide","de":"Ein Reiseführer"},{"fr":"Une randonnée","es":"Una caminata","en":"A hike","de":"Eine Wanderung"},{"fr":"Il y a des animaux ?","es":"¿Hay animales?","en":"Are there animals?","de":"Gibt es Tiere?"},{"fr":"C'est magnifique","es":"Es hermoso","en":"It's beautiful","de":"Es ist wunderschön"},{"fr":"Respectons la nature","es":"Respetemos la naturaleza","en":"Let's respect nature","de":"Lasst uns die Natur respektieren"}],"title_en":"Nature & adventures","title_de":"Natur und Abenteuer"},{"title":"Urgences","icon":"🩹","pairs":[{"fr":"J'ai besoin d'aide","es":"Necesito ayuda","en":"I need help","de":"Ich brauche Hilfe"},{"fr":"Appelez un médecin","es":"Llame a un médico","en":"Call a doctor","de":"Rufen Sie einen Arzt"},{"fr":"Où est l'hôpital ?","es":"¿Dónde está el hospital?","en":"Where is the hospital?","de":"Wo ist das Krankenhaus?"},{"fr":"J'ai mal ici","es":"Me duele aquí","en":"It hurts here","de":"Hier tut es weh"},{"fr":"Je suis allergique","es":"Soy alérgico","en":"I am allergic","de":"Ich bin allergisch"},{"fr":"La pharmacie","es":"La farmacia","en":"The pharmacy","de":"Die Apotheke"},{"fr":"J'ai perdu mon passeport","es":"Perdí mi pasaporte","en":"I lost my passport","de":"Ich habe meinen Reisepass verloren"},{"fr":"C'est urgent","es":"Es urgente","en":"It's urgent","de":"Es ist dringend"},{"fr":"Appelez la police","es":"Llame a la policía","en":"Call the police","de":"Rufen Sie die Polizei"},{"fr":"Je ne me sens pas bien","es":"No me siento bien","en":"I don't feel well","de":"Mir geht es nicht gut"}],"title_en":"Emergencies","title_de":"Notfälle"},{"title":"Vraies conversations","icon":"💬","pairs":[{"fr":"Que recommandez-vous ?","es":"¿Qué recomienda?","en":"What do you recommend?","de":"Was empfehlen Sie?"},{"fr":"Je voudrais réserver","es":"Quisiera reservar","en":"I would like to book","de":"Ich möchte reservieren"},{"fr":"Est-ce ouvert ?","es":"¿Está abierto?","en":"Is it open?","de":"Ist es geöffnet?"},{"fr":"C'est fermé","es":"Está cerrado","en":"It's closed","de":"Es ist geschlossen"},{"fr":"Demain matin","es":"Mañana por la mañana","en":"Tomorrow morning","de":"Morgen früh"},{"fr":"Aujourd'hui","es":"Hoy","en":"Today","de":"Heute"},{"fr":"Je suis en vacances","es":"Estoy de vacaciones","en":"I am on vacation","de":"Ich bin im Urlaub"},{"fr":"C'était formidable","es":"Fue maravilloso","en":"It was wonderful","de":"Es war wunderbar"},{"fr":"À quelle heure partons-nous ?","es":"¿A qué hora salimos?","en":"What time are we leaving?","de":"Um wie viel Uhr fahren wir ab?"},{"fr":"À la prochaine !","es":"¡Hasta la próxima!","en":"See you next time!","de":"Bis zum nächsten Mal!"}],"title_en":"Real conversations","title_de":"Echte Gespräche"},{"title":"Alphabet et prononciation","icon":"🔤","premium":true,"note":"Au Costa Rica, écoute bien les voyelles espagnoles : elles se prononcent de façon assez stable.","title_en":"Alphabet and pronunciation","title_de":"Alphabet und Aussprache","note_en":"In Costa Rica, pay attention to Spanish vowels: their pronunciation is quite consistent.","note_de":"Achte in Costa Rica auf die spanischen Vokale: Sie werden ziemlich gleichmäßig ausgesprochen.","pairs":[]},{"title":"Sons espagnols difficiles","icon":"🔊","premium":true,"note":"Le j de « jugo » est aspiré. En Amérique centrale, c et z devant e ou i se prononcent généralement comme s.","title_en":"Tricky Spanish sounds","title_de":"Schwierige spanische Laute","note_en":"The Spanish j in “jugo” sounds breathy. In Central America, c and z before e or i generally sound like s.","note_de":"Das spanische j in „jugo“ wird gehaucht. In Mittelamerika klingen c und z vor e oder i meist wie s.","pairs":[]},{"title":"Nombres de 0 à 100","icon":"🔢","premium":true,"note":"Les prix sont souvent annoncés en colones : entraîne-toi à entendre les nombres.","title_en":"Numbers from 0 to 100","title_de":"Zahlen von 0 bis 100","note_en":"Prices are often quoted in colones: practice recognizing numbers by ear.","note_de":"Preise werden oft in Colones genannt: Übe, Zahlen beim Hören zu erkennen.","pairs":[]},{"title":"Dates et calendrier","icon":"🗓️","premium":true,"note":"Au Costa Rica, les dates sont généralement indiquées au format jour/mois/année.","title_en":"Dates and calendar","title_de":"Datum und Kalender","note_en":"In Costa Rica, dates are usually written day/month/year.","note_de":"In Costa Rica schreibt man Datumsangaben normalerweise als Tag/Monat/Jahr.","pairs":[]},{"title":"Dire l’heure","icon":"🕒","premium":true,"note":"Un rendez-vous « a las dos » signifie à deux heures ; demande si c’est le matin ou l’après-midi.","title_en":"Telling the time","title_de":"Die Uhrzeit sagen","note_en":"An appointment “a las dos” means at two o’clock; ask whether it is AM or PM.","note_de":"Ein Termin „a las dos“ ist um zwei Uhr; frage nach Vormittag oder Nachmittag.","pairs":[]},{"title":"Pays et nationalités","icon":"🌎","premium":true,"note":"Les gentilés changent souvent selon le genre : costarricense, en revanche, convient aux deux genres.","title_en":"Countries and nationalities","title_de":"Länder und Nationalitäten","note_en":"Nationality words often change with gender. “Costarricense” works for all genders.","note_de":"Nationalitätsbezeichnungen richten sich oft nach dem Geschlecht; „costarricense“ gilt für alle.","pairs":[]},{"title":"Famille et proches","icon":"👨‍👩‍👧","premium":true,"note":"Dans une conversation familière, « mi mamá » et « mi papá » sont très courants.","title_en":"Family and loved ones","title_de":"Familie und Angehörige","note_en":"“Mi mamá” and “mi papá” are common in everyday conversation.","note_de":"„Mi mamá“ und „mi papá“ hört man häufig in Alltagsgesprächen.","pairs":[]},{"title":"Descriptions physiques","icon":"👀","premium":true,"note":"Pour décrire quelqu’un, utilise « ser » pour les caractéristiques et « tener » pour certains traits.","title_en":"Physical descriptions","title_de":"Personen beschreiben","note_en":"Use “ser” for general traits and “tener” for certain physical features.","note_de":"Benutze „ser“ für allgemeine Eigenschaften und „tener“ für bestimmte körperliche Merkmale.","pairs":[]},{"title":"Caractère et émotions","icon":"😊","premium":true,"note":"« Estoy feliz » décrit un état ; « soy tranquilo » décrit une qualité plutôt stable.","title_en":"Personality and emotions","title_de":"Charakter und Gefühle","note_en":"“Estoy feliz” describes a state; “soy tranquilo” describes a more lasting trait.","note_de":"„Estoy feliz“ beschreibt einen Zustand; „soy tranquilo“ eine eher dauerhafte Eigenschaft.","pairs":[]},{"title":"Articles et genre","icon":"📚","premium":true,"note":"Beaucoup de noms en -o sont masculins et de noms en -a féminins, avec des exceptions.","title_en":"Articles and gender","title_de":"Artikel und Geschlecht","note_en":"Many nouns ending in -o are masculine and many ending in -a are feminine, but there are exceptions.","note_de":"Viele Substantive auf -o sind männlich und auf -a weiblich, aber es gibt Ausnahmen.","pairs":[]},{"title":"Singulier et pluriel","icon":"🧩","premium":true,"note":"En général, un mot finissant par voyelle prend -s, et un mot finissant par consonne prend -es.","title_en":"Singular and plural","title_de":"Singular und Plural","note_en":"Usually, words ending in a vowel add -s; words ending in a consonant add -es.","note_de":"Meist bekommen Wörter mit Vokal am Ende ein -s und Wörter mit Konsonant ein -es.","pairs":[]},{"title":"Pronoms personnels","icon":"🙋","premium":true,"note":"Au Costa Rica, on entend beaucoup « usted », même entre proches ; « vos » est aussi utilisé.","title_en":"Personal pronouns","title_de":"Personalpronomen","note_en":"In Costa Rica, “usted” is very common, even among people who know each other; “vos” is also used.","note_de":"In Costa Rica ist „usted“ sehr verbreitet, sogar unter Bekannten; auch „vos“ wird benutzt.","pairs":[]},{"title":"Ser : identité","icon":"🪪","premium":true,"note":"« Ser » sert notamment à dire qui on est, sa profession et son origine.","title_en":"Ser: identity","title_de":"Ser: Identität","note_en":"Use “ser” for identity, profession and origin, among other things.","note_de":"„Ser“ wird unter anderem für Identität, Beruf und Herkunft verwendet.","pairs":[]},{"title":"Estar : état et lieu","icon":"📍","premium":true,"note":"« Estar » sert notamment à localiser et à décrire une situation temporaire.","title_en":"Estar: state and location","title_de":"Estar: Zustand und Ort","note_en":"Use “estar” for location and temporary states.","note_de":"„Estar“ verwendet man für Orte und vorübergehende Zustände.","pairs":[]},{"title":"Tener : possession et âge","icon":"🎂","premium":true,"note":"En espagnol, on « a » des années : « tengo treinta años ».","title_en":"Tener: possession and age","title_de":"Tener: Besitz und Alter","note_en":"In Spanish, you “have” years: “tengo treinta años”.","note_de":"Auf Spanisch „hat“ man Jahre: „tengo treinta años“.","pairs":[]},{"title":"Hay : il y a","icon":"🏘️","premium":true,"note":"« Hay » ne change pas entre le singulier et le pluriel.","title_en":"Hay: there is / there are","title_de":"Hay: es gibt","note_en":"“Hay” stays the same in singular and plural.","note_de":"„Hay“ bleibt im Singular und Plural gleich.","pairs":[]},{"title":"Questions courantes","icon":"❓","premium":true,"note":"Commence par identifier le mot interrogatif : dónde, cuándo, cuánto, cómo, por qué.","title_en":"Common questions","title_de":"Häufige Fragen","note_en":"Recognize the question words: dónde, cuándo, cuánto, cómo, por qué.","note_de":"Merke dir die Fragewörter: dónde, cuándo, cuánto, cómo, por qué.","pairs":[]},{"title":"Négation et réponses","icon":"✅","premium":true,"note":"La négation se construit souvent avec « no » avant le verbe.","title_en":"Negation and answers","title_de":"Verneinung und Antworten","note_en":"You often form a negative sentence by putting “no” before the verb.","note_de":"Für die Verneinung steht „no“ oft vor dem Verb.","pairs":[]},{"title":"Adjectifs et accords","icon":"🎨","premium":true,"note":"L’adjectif s’accorde souvent en genre et en nombre avec le nom.","title_en":"Adjectives and agreement","title_de":"Adjektive und Angleichung","note_en":"Adjectives often agree with nouns in gender and number.","note_de":"Adjektive passen sich oft in Geschlecht und Zahl an das Substantiv an.","pairs":[]},{"title":"Possessifs","icon":"🔑","premium":true,"note":"« Mi », « tu » et « su » s’accordent surtout avec le nombre de l’objet possédé.","title_en":"Possessives","title_de":"Possessivpronomen","note_en":"“Mi”, “tu” and “su” change mainly with the number of things owned.","note_de":"„Mi“, „tu“ und „su“ richten sich vor allem nach der Anzahl der besessenen Dinge.","pairs":[]},{"title":"Démonstratifs","icon":"👉","premium":true,"note":"« Este/esta » indique ce qui est proche ; « ese/esa » ce qui est plus éloigné.","title_en":"Demonstratives","title_de":"Demonstrativpronomen","note_en":"“Este/esta” points to something near you; “ese/esa” to something farther away.","note_de":"„Este/esta“ bezeichnet etwas Nahes, „ese/esa“ etwas weiter Entferntes.","pairs":[]},{"title":"Couleurs et formes","icon":"🌈","premium":true,"note":"Les couleurs s’accordent parfois : rojo/roja ; azul reste identique au singulier.","title_en":"Colors and shapes","title_de":"Farben und Formen","note_en":"Some colors change with gender: rojo/roja; azul stays the same in the singular.","note_de":"Manche Farben passen sich an: rojo/roja; azul bleibt im Singular gleich.","pairs":[]},{"title":"Maison et pièces","icon":"🏡","premium":true,"note":"La palabra « cuarto » peut désigner une pièce ou une chambre au Costa Rica.","title_en":"House and rooms","title_de":"Haus und Zimmer","note_en":"In Costa Rica, “cuarto” can mean a room or a bedroom.","note_de":"In Costa Rica kann „cuarto“ ein Zimmer oder ein Schlafzimmer bedeuten.","pairs":[]},{"title":"Objets du quotidien","icon":"🧺","premium":true,"note":"Essaie de nommer cinq objets autour de toi chaque matin.","title_en":"Everyday objects","title_de":"Alltagsgegenstände","note_en":"Try naming five objects around you every morning.","note_de":"Versuche jeden Morgen fünf Gegenstände um dich herum zu benennen.","pairs":[]},{"title":"Vêtements et tailles","icon":"👕","premium":true,"note":"Au magasin, demande « ¿Tiene otra talla? » pour une autre taille.","title_en":"Clothes and sizes","title_de":"Kleidung und Größen","note_en":"In a shop, ask “¿Tiene otra talla?” for a different size.","note_de":"Frage im Geschäft „¿Tiene otra talla?“ nach einer anderen Größe.","pairs":[]}];
+const translations={"fr":{"lang":"Français → Español","companion":"TON COMPAGNON PACO","hello":"¡Hola, viajero!","intro":"Découvre déjà 35 missions pour progresser en espagnol, avec des expressions utiles au Costa Rica. Paco t’accompagne à ton rythme ! De nouvelles missions arriveront bientôt.","freeMissions":"Missions gratuites","completedMissions":"Missions terminées","beginner":"Débutant","yourMissions":"🌴 Tes missions","missionSummary":"Les 10 premières missions sont gratuites. Les missions suivantes nécessitent Premium. De nouvelles aventures arrivent !","exerciseCount":"10 exercices","free":"Gratuit","restricted":"Accès réservé","finished":"Terminée ✓","xpToEarn":"20 XP à gagner","start":"Commencer →","replay":"Rejouer ↻","discover":"🔒 Découvrir Premium","premiumStar":"⭐ Premium · ","notePrefix":"🇨🇷 Astuce Paco : ","mission":"Mission","question":"Question","translate":"Traduis en espagnol :","listen":"Écoute puis choisis la bonne traduction :","listenBtn":"🔊 Écouter en espagnol","complete":"Complète la phrase :","reorder":"Remets les mots dans l’ordre :","chooseWords":"Choisis les mots dans l’ordre","retryPhrase":"↻ Recommencer la phrase","correct":"🎉 ¡Muy bien!","tip":"Paco t’aide :","outHearts":"❤️ Plus de cœurs ! Réessaie la mission pour progresser.","retry":"Réessayer ↻","continue":"Continuer →","back":"← Retour aux missions","completed":"🏆 ¡Felicidades! Mission terminée !","replayed":"Mission rejouée","premiumTitle":"✨ ¡Vamos Español! Premium","premiumActivated":"🌟 ¡Vamos Español! Premium activé","premiumIntro":"Les 100 premiers exercices sont gratuits. Débloque toutes les missions Premium actuelles et futures, dans les trois langues, avec un seul achat de 29 $ à vie.","premiumOn":"Ton accès Premium est reconnu. ¡Vamos!","buy":"Débloquer Premium · 29 $","opening":"Ouverture de la formule Premium…","noBuy":"L’achat Premium sera proposé depuis la version publiée du jeu.","footer":"¡Vamos Español! · 35 missions disponibles actuellement · D’autres arrivent bientôt !","audioError":"Audio indisponible sur cet appareil."},"en":{"lang":"English → Español","companion":"YOUR COMPANION PACO","hello":"¡Hola, traveler!","intro":"Explore 35 missions already available to improve your Spanish with useful Costa Rican phrases. Paco guides you at your own pace! More missions are on the way.","freeMissions":"Free missions","completedMissions":"Missions completed","beginner":"Beginner","yourMissions":"🌴 Your missions","missionSummary":"The first 10 missions are free. Later missions require Premium. More adventures are coming!","exerciseCount":"10 exercises","free":"Free","restricted":"Premium only","finished":"Completed ✓","xpToEarn":"Earn 20 XP","start":"Start →","replay":"Play again ↻","discover":"🔒 Discover Premium","premiumStar":"⭐ Premium · ","notePrefix":"🇨🇷 Paco’s tip: ","mission":"Mission","question":"Question","translate":"Translate into Spanish:","listen":"Listen, then choose the correct translation:","listenBtn":"🔊 Listen in Spanish","complete":"Complete the sentence:","reorder":"Put the words in order:","chooseWords":"Choose the words in order","retryPhrase":"↻ Restart the sentence","correct":"🎉 ¡Muy bien!","tip":"Paco helps:","outHearts":"❤️ No hearts left! Try the mission again to improve.","retry":"Try again ↻","continue":"Continue →","back":"← Back to missions","completed":"🏆 ¡Felicidades! Mission completed!","replayed":"Mission replayed","premiumTitle":"✨ ¡Vamos Español! Premium","premiumActivated":"🌟 ¡Vamos Español! Premium activated","premiumIntro":"The first 100 exercises are free. Unlock all current and future Premium missions in all three languages with a one-time $29 lifetime purchase.","premiumOn":"Your Premium access is active. ¡Vamos!","buy":"Unlock Premium · $29","opening":"Opening the Premium offer…","noBuy":"Premium purchasing will be available in the published version of the game.","footer":"¡Vamos Español! · 35 missions available now · More are coming soon!","audioError":"Audio is unavailable on this device."},"de":{"lang":"Deutsch → Español","companion":"DEIN BEGLEITER PACO","hello":"¡Hola, Reisender!","intro":"Entdecke jetzt schon 35 Missionen und lerne nützliche spanische Ausdrücke für Costa Rica. Paco begleitet dich in deinem Tempo! Weitere Missionen folgen.","freeMissions":"Kostenlose Missionen","completedMissions":"Abgeschlossene Missionen","beginner":"Anfänger","yourMissions":"🌴 Deine Missionen","missionSummary":"Die ersten 10 Missionen sind kostenlos. Für weitere Missionen brauchst du Premium. Neue Abenteuer folgen!","exerciseCount":"10 Übungen","free":"Kostenlos","restricted":"Nur mit Premium","finished":"Abgeschlossen ✓","xpToEarn":"20 XP verdienen","start":"Starten →","replay":"Erneut spielen ↻","discover":"🔒 Premium entdecken","premiumStar":"⭐ Premium · ","notePrefix":"🇨🇷 Pacos Tipp: ","mission":"Mission","question":"Frage","translate":"Übersetze ins Spanische:","listen":"Höre zu und wähle die richtige Übersetzung:","listenBtn":"🔊 Spanisch anhören","complete":"Ergänze den Satz:","reorder":"Bringe die Wörter in die richtige Reihenfolge:","chooseWords":"Wähle die Wörter in der richtigen Reihenfolge","retryPhrase":"↻ Satz neu beginnen","correct":"🎉 ¡Muy bien!","tip":"Paco hilft:","outHearts":"❤️ Keine Herzen mehr! Versuche die Mission erneut.","retry":"Erneut versuchen ↻","continue":"Weiter →","back":"← Zurück zu den Missionen","completed":"🏆 ¡Felicidades! Mission abgeschlossen!","replayed":"Mission erneut gespielt","premiumTitle":"✨ ¡Vamos Español! Premium","premiumActivated":"🌟 ¡Vamos Español! Premium aktiviert","premiumIntro":"Die ersten 100 Übungen sind kostenlos. Schalte alle aktuellen und zukünftigen Premium-Missionen in allen drei Sprachen mit einem einmaligen Kauf für 29 $ auf Lebenszeit frei.","premiumOn":"Dein Premium-Zugang ist aktiv. ¡Vamos!","buy":"Premium freischalten · 29 $","opening":"Premium-Angebot wird geöffnet…","noBuy":"Der Premium-Kauf wird in der veröffentlichten Version des Spiels verfügbar sein.","footer":"¡Vamos Español! · Derzeit 35 Missionen verfügbar · Weitere folgen bald!","audioError":"Audio ist auf diesem Gerät nicht verfügbar."}};
+
+// Premium codes are validated only by the Netlify backend. No real codes or secrets are shipped here.
+const ACTIVATION_KEY='vamos_premium_server_token_v6';
+const DEVICE_KEY='vamos_premium_device_v6';
+const API_URL='/api/premium';
+function localGet(key){try{return localStorage.getItem(key)||'';}catch(e){return '';}}
+function localSet(key,val){try{localStorage.setItem(key,val);}catch(e){}}
+function localRemove(key){try{localStorage.removeItem(key);}catch(e){}}
+function deviceID(){
+ let id=localGet(DEVICE_KEY);
+ if(!/^[a-f0-9-]{36}$/.test(id)){
+  if(window.crypto?.randomUUID){id=crypto.randomUUID();}
+  else{const b=new Uint8Array(16);crypto.getRandomValues(b);const hex=[...b].map(x=>x.toString(16).padStart(2,'0')).join('');id=hex.slice(0,8)+'-'+hex.slice(8,12)+'-'+hex.slice(12,16)+'-'+hex.slice(16,20)+'-'+hex.slice(20);}
+  localSet(DEVICE_KEY,id);
+ }
+ return id;
+}
+const activationCopy={
+ fr:{label:'Tu as un code Premium personnel ?',placeholder:'PACO-XXXXX-XXXXX-XXXXX-XXXXX',action:'Activer mon code',hint:'Chaque client reçoit un code personnel. Le même code fonctionne sur 3 appareils maximum.',success:'🎉 Code activé ! Les 35 missions sont accessibles.',wrong:'Code invalide ou désactivé. Vérifie les caractères.',enabled:'🌟 Premium activé sur cet appareil.',loading:'Vérification du code…',offline:'Connexion au serveur impossible. Réessaie avec Internet.',limit:'Ce code est déjà utilisé sur 3 appareils. Contacte le support.',restoring:'Vérification de ton accès Premium…',unavailable:'La validation Premium n’est pas encore configurée sur ce site.',relogin:'Ton accès doit être renouvelé. Entre à nouveau ton code.'},
+ en:{label:'Have a personal Premium code?',placeholder:'PACO-XXXXX-XXXXX-XXXXX-XXXXX',action:'Activate my code',hint:'Each customer gets a personal code. It can be used on up to 3 devices.',success:'🎉 Code activated! All 35 missions are available.',wrong:'Invalid or disabled code. Check the characters.',enabled:'🌟 Premium active on this device.',loading:'Checking your code…',offline:'Cannot connect to the server. Try again online.',limit:'This code is already used on 3 devices. Contact support.',restoring:'Checking your Premium access…',unavailable:'Premium verification is not configured on this site yet.',relogin:'Your access needs to be renewed. Enter your code again.'},
+ de:{label:'Hast du einen persönlichen Premium-Code?',placeholder:'PACO-XXXXX-XXXXX-XXXXX-XXXXX',action:'Code aktivieren',hint:'Jeder Kunde erhält einen persönlichen Code. Er funktioniert auf bis zu 3 Geräten.',success:'🎉 Code aktiviert! Alle 35 Missionen sind verfügbar.',wrong:'Ungültiger oder deaktivierter Code. Prüfe die Zeichen.',enabled:'🌟 Premium auf diesem Gerät aktiv.',loading:'Code wird geprüft…',offline:'Server nicht erreichbar. Bitte versuche es online erneut.',limit:'Dieser Code wird bereits auf 3 Geräten verwendet. Kontaktiere den Support.',restoring:'Premium-Zugang wird geprüft…',unavailable:'Premium-Prüfung ist auf dieser Seite noch nicht eingerichtet.',relogin:'Dein Zugang muss erneuert werden. Gib deinen Code erneut ein.'}
+};
+function refreshActivationCopy(){
+ const c=activationCopy[lang]||activationCopy.fr;
+ $('premiumCodeLabel').textContent=c.label;$('premiumCode').placeholder=c.placeholder;
+ $('redeemPremium').textContent=c.action;$('premiumCodeHelp').textContent=c.hint;
+ $('premiumCodeBox').classList.toggle('hidden',estPremium);
+ if(estPremium){$('premiumCodeStatus').textContent=c.enabled;$('premiumCodeStatus').className='premiumCodeStatus success';}
+}
+function activationStatus(key,cls='error'){
+ $('premiumCodeStatus').textContent=(activationCopy[lang]||activationCopy.fr)[key]||key;
+ $('premiumCodeStatus').className='premiumCodeStatus '+cls;
+}
+async function apiPremium(payload){
+ const res=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),cache:'no-store'});
+ let data={};try{data=await res.json();}catch(e){}
+ if(!res.ok||!data.ok){const err=new Error(data.error||'offline');err.status=res.status;throw err;}
+ return data;
+}
+function applyPremiumPayload(data){
+ if(!Array.isArray(data.lessons)||data.lessons.length!==25||!Array.isArray(data.dialogues)||data.dialogues.length!==25){throw new Error('invalid_payload');}
+ data.lessons.forEach((lesson,i)=>{
+  if(!lesson||!Array.isArray(lesson.pairs)||lesson.pairs.length<10)throw new Error('invalid_payload');
+  lessons[10+i]=lesson;
+ });
+ data.dialogues.forEach((dialogue,i)=>{
+  if(!Array.isArray(dialogue)||dialogue.length<5)throw new Error('invalid_payload');
+  sceneDialogues[10+i]=dialogue;
+ });
+ estPremium=true;window.estPremium=true;
+ document.body.dataset.premium='true';
+ localSet(ACTIVATION_KEY,data.token);
+ render();refreshActivationCopy();
+}
+function deactivatePremium(){
+ estPremium=false;window.estPremium=false;document.body.dataset.premium='false';
+ localRemove(ACTIVATION_KEY);
+ for(let i=10;i<lessons.length;i++){lessons[i]={...lessons[i],pairs:[]};sceneDialogues[i]=[];}
+ if(current>=FREE_COUNT)backToLessons();else render();
+}
+async function activatePremium(){
+ const entered=$('premiumCode').value.trim().toUpperCase().replace(/\s+/g,'');
+ if(!/^PACO(?:-[A-Z2-9]{5}){4}$/.test(entered)){activationStatus('wrong');return;}
+ $('redeemPremium').disabled=true;activationStatus('loading','');
+ try{
+  const data=await apiPremium({action:'activate',code:entered,deviceId:deviceID()});
+  applyPremiumPayload(data);$('premiumCode').value='';activationStatus('success','success');
+ }catch(e){activationStatus(e.message==='device_limit'?'limit':e.status===404||e.message==='not_configured'?'unavailable':e.message==='invalid_code'||e.message==='revoked'?'wrong':'offline');}
+ finally{$('redeemPremium').disabled=false;}
+}
+async function restorePremium(){
+ const token=localGet(ACTIVATION_KEY);if(!token)return;
+ activationStatus('restoring','');
+ try{const data=await apiPremium({action:'restore',token,deviceId:deviceID()});applyPremiumPayload(data);}
+ catch(e){
+  if(e.message==='invalid_token'||e.message==='revoked'||e.message==='device_limit'){
+   deactivatePremium();activationStatus('relogin');
+  }else{activationStatus(e.status===404?'unavailable':'offline');}
+ }
+}
+const challengeCopy={
+ fr:{count:'15 défis variés',earn:'Jusqu’à 150 XP',phase:['🌱 Découverte','🔥 Entraînement','🏆 Défi final'],types:{choice:'Choisis la bonne traduction',listenChoice:'Écoute et retrouve le sens',cloze:'Complète la phrase',order:'Remets les mots dans l’ordre',write:'Écris en espagnol',dictation:'Écoute et écris ce que tu entends',context:'Situation réelle : comment le dirais-tu ?',match:'Associe les expressions',meaning:'Trouve la bonne phrase',listenMeaning:'Écoute et choisis le sens',boss:'Défi final : réponds sans indices'},slow:'🐢 Plus lentement',play:'🔊 Écouter',check:'Vérifier ✓',retry:'Essaie encore : tu as une deuxième chance.',wrong:'La bonne réponse était :',perfect:'Bravo !',again:'Rejouer',pairs:'Paires trouvées',missing:'Écris le mot manquant',hint:'Écris la phrase complète',streak:'Série',completion:'Défis terminés !',replay:'Déjà récompensé',needSound:'Écoute l’audio, puis réponds.'},
+ en:{count:'15 varied challenges',earn:'Up to 150 XP',phase:['🌱 Discover','🔥 Practice','🏆 Final challenge'],types:{choice:'Choose the correct translation',listenChoice:'Listen and find the meaning',cloze:'Complete the sentence',order:'Put the words in order',write:'Write in Spanish',dictation:'Listen and type what you hear',context:'Real-life situation: how would you say it?',match:'Match the expressions',meaning:'Find the correct phrase',listenMeaning:'Listen and choose the meaning',boss:'Final challenge: answer without hints'},slow:'🐢 Slower',play:'🔊 Listen',check:'Check ✓',retry:'Try again: you have one more chance.',wrong:'The correct answer was:',perfect:'Well done!',again:'Replay',pairs:'Pairs matched',missing:'Type the missing word',hint:'Type the full phrase',streak:'Streak',completion:'Challenges completed!',replay:'Already rewarded',needSound:'Listen to the audio, then answer.'},
+ de:{count:'15 verschiedene Aufgaben',earn:'Bis zu 150 XP',phase:['🌱 Entdecken','🔥 Üben','🏆 Abschlussprüfung'],types:{choice:'Wähle die richtige Übersetzung',listenChoice:'Höre zu und finde die Bedeutung',cloze:'Ergänze den Satz',order:'Bringe die Wörter in die richtige Reihenfolge',write:'Schreibe auf Spanisch',dictation:'Höre zu und schreibe, was du hörst',context:'Alltagssituation: Wie würdest du es sagen?',match:'Ordne die Ausdrücke zu',meaning:'Finde den richtigen Satz',listenMeaning:'Höre zu und wähle die Bedeutung',boss:'Abschlussprüfung: Antworte ohne Hinweise'},slow:'🐢 Langsamer',play:'🔊 Anhören',check:'Prüfen ✓',retry:'Versuche es noch einmal: Du hast eine zweite Chance.',wrong:'Die richtige Antwort war:',perfect:'Sehr gut!',again:'Wiederholen',pairs:'Paare gefunden',missing:'Schreibe das fehlende Wort',hint:'Schreibe den ganzen Satz',streak:'Serie',completion:'Aufgaben abgeschlossen!',replay:'Bereits belohnt',needSound:'Höre die Aufnahme an und antworte.'}
+};
+function cc(){return challengeCopy[lang]||challengeCopy.fr;}
+const dialogueCopy={
+ fr:{scene:'🎭 Conversation réelle',tap:'Touchez une bulle pour écouter',yourTurn:'À ton tour : réponds en espagnol',chooseReply:'Choisis la réponse adaptée',listenReply:'Écoute la réplique et choisis sa signification',rebuild:'Construis la réponse en espagnol',writeReply:'Écris ta réponse en espagnol',voice:'🔊 Les deux voix dépendent des voix espagnoles disponibles sur votre téléphone ou navigateur. Les audios enregistrés restent disponibles pour les expressions existantes.',situation:'Imagine cette situation',challenge:'Une nouvelle phrase à chaque défi'},
+ en:{scene:'🎭 Real conversation',tap:'Tap a bubble to listen',yourTurn:'Your turn: reply in Spanish',chooseReply:'Choose the right reply',listenReply:'Listen to the reply and choose its meaning',rebuild:'Build the reply in Spanish',writeReply:'Write your reply in Spanish',voice:'🔊 The two voices depend on which Spanish voices your device or browser provides. Existing phrases still have recorded audio.',situation:'Imagine this situation',challenge:'A different target phrase in every challenge'},
+ de:{scene:'🎭 Echtes Gespräch',tap:'Tippe auf eine Sprechblase, um sie anzuhören',yourTurn:'Du bist dran: Antworte auf Spanisch',chooseReply:'Wähle die passende Antwort',listenReply:'Höre die Antwort und wähle ihre Bedeutung',rebuild:'Bilde die Antwort auf Spanisch',writeReply:'Schreibe deine Antwort auf Spanisch',voice:'🔊 Die beiden Stimmen hängen von den verfügbaren spanischen Stimmen deines Geräts oder Browsers ab. Vorhandene Ausdrücke haben weiterhin Audiodateien.',situation:'Stell dir diese Situation vor',challenge:'Jede Aufgabe hat einen anderen Zielsatz'}
+};
+function dc(){return dialogueCopy[lang]||dialogueCopy.fr;}
+const voiceUI={
+ fr:{title:'🎙️ Choisis les voix du dialogue',female:'👩 Voix féminine',male:'👨 Voix masculine',none:'Aucune voix espagnole installée détectée : les dialogues utiliseront la voix de secours du navigateur.',one:'Une seule voix espagnole détectée : deux voix différentes ne sont pas possibles sur cet appareil.',many:'Voix espagnoles détectées : sélectionne deux voix différentes puis teste-les.',test:'🔊 Écouter'},
+ en:{title:'🎙️ Choose the dialogue voices',female:'👩 Female voice',male:'👨 Male voice',none:'No Spanish voice detected: dialogues will use the browser fallback voice.',one:'Only one Spanish voice detected: two different voices are not possible on this device.',many:'Spanish voices detected: choose two different voices and test them.',test:'🔊 Listen'},
+ de:{title:'🎙️ Wähle die Dialogstimmen',female:'👩 Weibliche Stimme',male:'👨 Männliche Stimme',none:'Keine spanische Stimme erkannt: Dialoge verwenden die Ersatzstimme des Browsers.',one:'Nur eine spanische Stimme erkannt: zwei verschiedene Stimmen sind auf diesem Gerät nicht möglich.',many:'Spanische Stimmen erkannt: Wähle zwei verschiedene Stimmen und teste sie.',test:'🔊 Anhören'}
+};
+function vc(){return voiceUI[lang]||voiceUI.fr;}
+
+
+
+let sceneDialogues=[[{"es":"Buenos días, ¿cómo estás?","fr":"Bonjour, comment vas-tu ?","en":"Good morning, how are you?","de":"Guten Morgen, wie geht es dir?","speaker":"f"},{"es":"Muy bien, gracias. ¿Y tú?","fr":"Très bien, merci. Et toi ?","en":"Very well, thanks. And you?","de":"Sehr gut, danke. Und dir?","speaker":"m"},{"es":"Estoy un poco cansado hoy.","fr":"Je suis un peu fatigué aujourd'hui.","en":"I'm a little tired today.","de":"Ich bin heute etwas müde.","speaker":"f"},{"es":"¿Quieres tomar un café conmigo?","fr":"Tu veux prendre un café avec moi ?","en":"Would you like to have coffee with me?","de":"Möchtest du mit mir einen Kaffee trinken?","speaker":"m"},{"es":"¡Claro! Nos vemos en diez minutos.","fr":"Bien sûr ! On se retrouve dans dix minutes.","en":"Of course! See you in ten minutes.","de":"Klar! Wir sehen uns in zehn Minuten.","speaker":"f"}],[{"es":"Hola, soy Laura. ¿Cómo te llamas?","fr":"Bonjour, je suis Laura. Comment t'appelles-tu ?","en":"Hi, I'm Laura. What's your name?","de":"Hallo, ich bin Laura. Wie heißt du?","speaker":"f"},{"es":"Me llamo Daniel. Mucho gusto.","fr":"Je m'appelle Daniel. Enchanté.","en":"My name is Daniel. Nice to meet you.","de":"Ich heiße Daniel. Freut mich.","speaker":"m"},{"es":"¿De dónde eres, Daniel?","fr":"D'où viens-tu, Daniel ?","en":"Where are you from, Daniel?","de":"Woher kommst du, Daniel?","speaker":"f"},{"es":"Soy de Canadá, pero vivo aquí.","fr":"Je viens du Canada, mais j'habite ici.","en":"I'm from Canada, but I live here.","de":"Ich komme aus Kanada, aber ich wohne hier.","speaker":"m"},{"es":"¡Qué bien! Bienvenido a Costa Rica.","fr":"Super ! Bienvenue au Costa Rica.","en":"That's great! Welcome to Costa Rica.","de":"Wie schön! Willkommen in Costa Rica.","speaker":"f"}],[{"es":"Buenas tardes, ¿tiene una mesa libre?","fr":"Bonjour, avez-vous une table libre ?","en":"Good afternoon, do you have a free table?","de":"Guten Tag, haben Sie einen freien Tisch?","speaker":"f"},{"es":"Sí, junto a la ventana.","fr":"Oui, près de la fenêtre.","en":"Yes, by the window.","de":"Ja, am Fenster.","speaker":"m"},{"es":"¿Me trae un café con leche, por favor?","fr":"Vous m'apportez un café au lait, s'il vous plaît ?","en":"Could you bring me a coffee with milk, please?","de":"Bringen Sie mir bitte einen Milchkaffee?","speaker":"f"},{"es":"Por supuesto. ¿Algo para comer?","fr":"Bien sûr. Quelque chose à manger ?","en":"Of course. Anything to eat?","de":"Natürlich. Möchten Sie etwas essen?","speaker":"m"},{"es":"Una tostada y la cuenta después, gracias.","fr":"Un toast et l'addition après, merci.","en":"A piece of toast and the bill afterwards, thanks.","de":"Einen Toast und später die Rechnung, danke.","speaker":"f"}],[{"es":"Disculpe, ¿cómo llego al parque?","fr":"Excusez-moi, comment aller au parc ?","en":"Excuse me, how do I get to the park?","de":"Entschuldigung, wie komme ich zum Park?","speaker":"f"},{"es":"Camine dos cuadras y gire a la derecha.","fr":"Marchez deux pâtés de maisons et tournez à droite.","en":"Walk two blocks and turn right.","de":"Gehen Sie zwei Häuserblocks und biegen Sie rechts ab.","speaker":"m"},{"es":"¿Está lejos de aquí?","fr":"C'est loin d'ici ?","en":"Is it far from here?","de":"Ist es weit von hier?","speaker":"f"},{"es":"No, está a cinco minutos a pie.","fr":"Non, c'est à cinq minutes à pied.","en":"No, it's a five-minute walk.","de":"Nein, es sind fünf Minuten zu Fuß.","speaker":"m"},{"es":"Muchas gracias por su ayuda.","fr":"Merci beaucoup pour votre aide.","en":"Thank you very much for your help.","de":"Vielen Dank für Ihre Hilfe.","speaker":"f"}],[{"es":"Hola, reservé una habitación para dos noches.","fr":"Bonjour, j'ai réservé une chambre pour deux nuits.","en":"Hello, I booked a room for two nights.","de":"Hallo, ich habe ein Zimmer für zwei Nächte gebucht.","speaker":"f"},{"es":"Perfecto. ¿A nombre de quién?","fr":"Parfait. À quel nom ?","en":"Perfect. Under what name?","de":"Perfekt. Auf welchen Namen?","speaker":"m"},{"es":"A nombre de Martín López.","fr":"Au nom de Martín López.","en":"Under the name Martín López.","de":"Auf den Namen Martín López.","speaker":"f"},{"es":"Aquí tiene la llave. El desayuno empieza a las siete.","fr":"Voici la clé. Le petit-déjeuner commence à sept heures.","en":"Here's your key. Breakfast starts at seven.","de":"Hier ist Ihr Schlüssel. Das Frühstück beginnt um sieben.","speaker":"m"},{"es":"Gracias. ¿Hay agua caliente en la ducha?","fr":"Merci. Il y a de l'eau chaude dans la douche ?","en":"Thanks. Is there hot water in the shower?","de":"Danke. Gibt es warmes Wasser in der Dusche?","speaker":"f"}],[{"es":"¡Qué bonita está la playa hoy!","fr":"Comme la plage est belle aujourd'hui !","en":"The beach looks beautiful today!","de":"Wie schön der Strand heute ist!","speaker":"f"},{"es":"Sí, pero las olas están fuertes.","fr":"Oui, mais les vagues sont fortes.","en":"Yes, but the waves are strong.","de":"Ja, aber die Wellen sind stark.","speaker":"m"},{"es":"¿Es seguro nadar aquí?","fr":"Est-ce sûr de nager ici ?","en":"Is it safe to swim here?","de":"Kann man hier sicher schwimmen?","speaker":"f"},{"es":"Mejor caminemos por la orilla.","fr":"Mieux vaut marcher au bord de l'eau.","en":"Let's walk along the shore instead.","de":"Gehen wir lieber am Ufer entlang.","speaker":"m"},{"es":"Buena idea. Después vemos el atardecer.","fr":"Bonne idée. Ensuite, on regarde le coucher du soleil.","en":"Good idea. Afterwards we'll watch the sunset.","de":"Gute Idee. Danach schauen wir uns den Sonnenuntergang an.","speaker":"f"}],[{"es":"Buenas, ¿cuánto cuesta esta bolsa?","fr":"Bonjour, combien coûte ce sac ?","en":"Hello, how much is this bag?","de":"Hallo, wie viel kostet diese Tasche?","speaker":"f"},{"es":"Cuesta ocho mil colones.","fr":"Elle coûte huit mille colones.","en":"It costs eight thousand colones.","de":"Sie kostet achttausend Colones.","speaker":"m"},{"es":"¿Tiene una más pequeña?","fr":"Vous en avez une plus petite ?","en":"Do you have a smaller one?","de":"Haben Sie eine kleinere?","speaker":"f"},{"es":"Sí, esta cuesta cinco mil.","fr":"Oui, celle-ci coûte cinq mille.","en":"Yes, this one costs five thousand.","de":"Ja, diese kostet fünftausend.","speaker":"m"},{"es":"Me llevo la pequeña. ¿Acepta tarjeta?","fr":"Je prends la petite. Vous acceptez la carte ?","en":"I'll take the small one. Do you accept cards?","de":"Ich nehme die kleine. Akzeptieren Sie Karten?","speaker":"f"}],[{"es":"¿A qué hora empieza la caminata?","fr":"À quelle heure commence la randonnée ?","en":"What time does the hike start?","de":"Um wie viel Uhr beginnt die Wanderung?","speaker":"f"},{"es":"A las ocho, con un guía local.","fr":"À huit heures, avec un guide local.","en":"At eight, with a local guide.","de":"Um acht, mit einem einheimischen Guide.","speaker":"m"},{"es":"¿Podemos ver animales en el sendero?","fr":"Peut-on voir des animaux sur le sentier ?","en":"Can we see animals on the trail?","de":"Können wir auf dem Weg Tiere sehen?","speaker":"f"},{"es":"Con suerte veremos monos y tucanes.","fr":"Avec de la chance, on verra des singes et des toucans.","en":"With luck we'll see monkeys and toucans.","de":"Mit Glück sehen wir Affen und Tukane.","speaker":"m"},{"es":"Llevaré agua y zapatos para caminar.","fr":"Je prendrai de l'eau et des chaussures de marche.","en":"I'll bring water and walking shoes.","de":"Ich nehme Wasser und Wanderschuhe mit.","speaker":"f"}],[{"es":"Disculpe, mi amigo se cayó.","fr":"Excusez-moi, mon ami est tombé.","en":"Excuse me, my friend fell down.","de":"Entschuldigung, mein Freund ist gestürzt.","speaker":"f"},{"es":"¿Está consciente y puede hablar?","fr":"Il est conscient et peut parler ?","en":"Is he conscious and able to speak?","de":"Ist er bei Bewusstsein und kann er sprechen?","speaker":"m"},{"es":"Sí, pero le duele mucho la pierna.","fr":"Oui, mais il a très mal à la jambe.","en":"Yes, but his leg hurts a lot.","de":"Ja, aber sein Bein tut sehr weh.","speaker":"f"},{"es":"Voy a llamar a emergencias ahora mismo.","fr":"Je vais appeler les secours tout de suite.","en":"I'm going to call emergency services right now.","de":"Ich rufe sofort den Rettungsdienst.","speaker":"m"},{"es":"Gracias. Nos quedamos aquí esperando.","fr":"Merci. Nous restons ici en attendant.","en":"Thank you. We'll stay here and wait.","de":"Danke. Wir bleiben hier und warten.","speaker":"f"}],[{"es":"¿Qué planes tienes para mañana?","fr":"Qu'est-ce que tu prévois demain ?","en":"What are your plans for tomorrow?","de":"Was hast du morgen vor?","speaker":"f"},{"es":"Quiero conocer un pueblo cerca de aquí.","fr":"Je veux découvrir un village près d'ici.","en":"I want to visit a village nearby.","de":"Ich möchte ein Dorf in der Nähe besuchen.","speaker":"m"},{"es":"¿Te gustaría venir conmigo?","fr":"Tu aimerais venir avec moi ?","en":"Would you like to come with me?","de":"Möchtest du mitkommen?","speaker":"f"},{"es":"Sí, pero tengo que trabajar por la mañana.","fr":"Oui, mais je dois travailler le matin.","en":"Yes, but I have to work in the morning.","de":"Ja, aber ich muss morgens arbeiten.","speaker":"m"},{"es":"Entonces salimos después del almuerzo.","fr":"Alors on part après le déjeuner.","en":"Then we'll leave after lunch.","de":"Dann fahren wir nach dem Mittagessen los.","speaker":"f"}],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]];
+const FREE_COUNT=10;
+const CHALLENGES_PER_MISSION=15;
+let streak=0,questionMistakes=0;
+const $=id=>document.getElementById(id);
+const availableLangs=['fr','en','de'];
+let lang='fr',estPremium=false,current=-1,index=0,hearts=3,locked=false,selected=[];
+try {const saved=localStorage.getItem('vamos_language');if(availableLangs.includes(saved))lang=saved;}catch(e){}
+let state={done:{},xp:0,rewarded:{}};
+function keyFor(l){return l==='fr'?'vamos_v2_progress':'vamos_v2_progress_'+l;}
+function loadProgress(){
+ state={done:{},xp:0,rewarded:{}};
+ try {let s=JSON.parse(localStorage.getItem(keyFor(lang)));if(s&&typeof s==='object'){state.done=s.done||{};state.xp=Number(s.xp)||0;state.rewarded=s.rewarded||{};}}catch(e){}
+}
+function save(){try{localStorage.setItem(keyFor(lang),JSON.stringify(state));}catch(e){}}
+function t(k){return translations[lang]?.[k]||translations.fr[k]||k;}
+function phrase(pair){return pair[lang]||pair.fr;}
+function title(l){return l['title_'+lang]||l.title;}
+function note(l){return l['note_'+lang]||l.note||'';}
+function finished(){return lessons.filter((l,i)=>state.done[i]===true).length;}
+function freeFinished(){return lessons.slice(0,FREE_COUNT).filter((l,i)=>state.done[i]===true).length;}
+function setLanguage(l){
+ if(!availableLangs.includes(l))return;
+ lang=l;document.documentElement.lang=l;
+ try{localStorage.setItem('vamos_language',l);}catch(e){}
+ loadProgress();
+ document.querySelectorAll('[data-lang]').forEach(b=>{b.classList.toggle('active',b.dataset.lang===l);b.setAttribute('aria-pressed',b.dataset.lang===l?'true':'false');});
+ $('langNote').textContent=t('lang');
+ $('companion').textContent=t('companion');$('hello').textContent=t('hello');$('intro').textContent=t('intro');
+ $('beginner').textContent=t('beginner');$('yourMissions').textContent=t('yourMissions');$('missionSummary').textContent=t('missionSummary');
+ $('footerText').textContent=t('footer');$('voiceNotice').textContent=dc().voice;refreshVoiceStudio();$('backToLessons').textContent=t('back');refreshActivationCopy();
+ $('premiumCodeStatus').textContent='';$('premiumCodeStatus').className='premiumCodeStatus';
+ $('quiz').classList.add('hidden');$('lessonsArea').classList.remove('hidden');current=-1;
+ render();
+}
+function render(){
+ $('xp').textContent=$('xp2').textContent=state.xp;
+ let total=estPremium?lessons.length:FREE_COUNT;
+ let completed=estPremium?finished():freeFinished();
+ $('done').textContent=completed+'/'+total;
+ $('doneLabel').textContent=t(estPremium?'completedMissions':'freeMissions');
+ $('bar').style.width=Math.min(100,completed/total*100)+'%';
+ $('premiumHeader').textContent=t(estPremium?'premiumActivated':'premiumTitle');
+ $('premiumDescription').textContent=t(estPremium?'premiumOn':'premiumIntro');
+ $('premiumCodeBox').classList.toggle('hidden',estPremium);
+ $('lessons').replaceChildren();
+ lessons.forEach((lesson,i)=>{
+  const isLocked=!!lesson.premium&&!estPremium;
+  const card=document.createElement('div');card.className='card'+(isLocked?' premiumLock':'');
+  const h=document.createElement('h3');h.textContent=lesson.icon+' '+t('mission')+' '+(i+1)+' · '+title(lesson);
+  const p=document.createElement('p');p.className='muted';
+  p.textContent=cc().count+' · '+(isLocked?'🔒 Premium':lesson.premium?t('premiumStar'):t('free')+' · ')+(isLocked?t('restricted'):state.done[i]?t('finished'):cc().earn);
+  card.append(h);
+  if(note(lesson)){const tip=document.createElement('p');tip.className='muted';tip.textContent='🇨🇷 '+note(lesson);card.append(tip);}
+  card.append(p);
+  const b=document.createElement('button');b.type='button';
+  b.textContent=isLocked?t('discover'):state.done[i]?t('replay'):t('start');
+  b.onclick=()=>{if(isLocked){document.querySelector('.premium').scrollIntoView({behavior:'smooth'});return;}start(i);};
+  card.append(b);$('lessons').append(card);
+ });
+}
+function start(i){
+ if(!lessons[i]||(lessons[i].premium&&(!estPremium||!lessons[i].pairs?.length))){document.querySelector('.premium').scrollIntoView({behavior:'smooth'});return;}
+ current=i;index=0;hearts=3;locked=false;streak=0;questionMistakes=0;
+ $('lessonsArea').classList.add('hidden');$('quiz').classList.remove('hidden');
+ question();$('quiz').scrollIntoView({behavior:'smooth',block:'start'});
+}
+const recordedAudio={"A la derecha": "3efa807fce98.mp3", "A la izquierda": "2c57a4438c8c.mp3", "A las nueve": "1d9f6c2b0836.mp3", "Adiós": "071670fb5764.mp3", "Agua": "e624ee5da482.mp3", "Amarillo": "173c67b33002.mp3", "Amigos amables": "1354facc0d6a.mp3", "Animales": "19bf168b0330.mp3", "Ayer fue domingo": "38b0ba88eddc.mp3", "Azul": "5bdda331cf92.mp3", "Blanco": "954773cf25dd.mp3", "Buenas noches": "83ce486b82b2.mp3", "Calles tranquilas": "b437611bb477.mp3", "Cero": "d01e266543e8.mp3", "Cien": "e078ee5f7e2f.mp3", "Cinco": "fe9f9a42df78.mp3", "Cincuenta": "62aab281adc0.mp3", "Con leche": "f77373fc4654.mp3", "Con tarjeta": "0e01b29603a8.mp3", "Costa Rica": "1bf429f94068.mp3", "De nada": "329997c41f33.mp3", "Deletree su nombre, por favor": "32777a698677.mp3", "Diez": "47f1b09b9690.mp3", "Disculpe": "5f03005ee521.mp3", "Dos": "586c15c6fd84.mp3", "Dos carros rojos": "bfa7ba581485.mp3", "Dos casas": "9334ab2a094a.mp3", "Dos personas": "60384abaca04.mp3", "El ajo": "24b936d50672.mp3", "El alfabeto español": "90a22c710b18.mp3", "El autobús": "24bf6ee3360d.mp3", "El baño": "843e0df6536d.mp3", "El bosque": "d5189f1e4867.mp3", "El bus está allá": "d740bb4c68c8.mp3", "El cargador": "2ce7910f413d.mp3", "El carro": "9b76c1a9e058.mp3", "El chico": "69b59b541122.mp3", "El chocolate": "a5290c2d8cf3.mp3", "El cuadrado": "73566b4c7c7a.mp3", "El círculo": "03b5cc8b647e.mp3", "El desayuno": "aecdbab9c945.mp3", "El dormitorio": "c852c74e658e.mp3", "El jardín": "10fb20cc675e.mp3", "El jugo": "634c702709d7.mp3", "El libro": "4be6e5a25f26.mp3", "El mar": "d8daaa7ac5b4.mp3", "El mercado": "2af2a16da60b.mp3", "El pantalón": "516569a8e77e.mp3", "El perro": "7b4c79598bd0.mp3", "El problema": "9215c8c6020a.mp3", "El pueblo": "639afd3a3a27.mp3", "El sol": "502d079c1641.mp3", "El sombrero": "52aec7cd5dbb.mp3", "El taxi": "c78227cf9be7.mp3", "El techo": "0d4ad6ca0acb.mp3", "El teléfono": "c0dfb56fbca9.mp3", "El triángulo": "ee82104e57e4.mp3", "El ventilador": "6906c6c134b7.mp3", "El vestido": "aa82ab952256.mp3", "Ella": "f53e0f4c0e2d.mp3", "Ella es alta": "6045d1693e71.mp3", "Ella es española": "7c8b9c4e6643.mp3", "Ella es joven": "29608e569114.mp3", "Ella es médica": "baa50b455c28.mp3", "Ella es simpática": "19ed2a5c6279.mp3", "Ella está en la escuela": "1ff4b6e6b275.mp3", "Ella está preocupada": "0e5e366ab767.mp3", "Ella no está aquí": "b26f3ee9bc2d.mp3", "Ella tiene el pelo corto": "a361e0b510ed.mp3", "Ella tiene el pelo negro": "7f9f9d78b7a7.mp3", "Ella tiene el pelo rizado": "684aefea368d.mp3", "Ella tiene un perro": "b8ea5a442c40.mp3", "Ellas": "1d2754992478.mp3", "Ellos": "3a064d3080a8.mp3", "Ellos son amigos": "02e68270245a.mp3", "En abril": "c60b48c3b3a0.mp3", "En diciembre": "a8d46dbfb49d.mp3", "En efectivo": "ae3997bfbe2c.mp3", "En enero": "b26a0a107a99.mp3", "En febrero": "30efd9b7a14f.mp3", "En marzo": "1a3943fc0cac.mp3", "En mayo": "9d2147af6be9.mp3", "Eres profesor": "21ee5f465a16.mp3", "Es demasiado caro": "9f146cbb5e3d.mp3", "Es hermoso": "9ff0240cb211.mp3", "Es la una": "ac713a746930.mp3", "Es medianoche": "d135c6c2f02a.mp3", "Es mediodía": "84c7ae9f9b96.mp3", "Es mi casa": "ddd2e5c7c6f6.mp3", "Es urgente": "4bea753c4f1b.mp3", "Esa playa": "96e7b65b64c2.mp3", "Esas casas": "78c298064e37.mp3", "Ese carro": "f06bb448dd76.mp3", "Eso es importante": "5261aa1a2ba6.mp3", "Esos árboles": "f33b2c8a7d1d.mp3", "Esta casa": "4d9c93bfc2c1.mp3", "Esta es mi familia": "703f9684c610.mp3", "Estamos aquí": "9a19f06a8a1b.mp3", "Estamos felices": "74b50d218eaa.mp3", "Estamos listos": "c65694d0ca21.mp3", "Estas llaves": "5c7f987e935b.mp3", "Este libro": "8b6d5aa47e3a.mp3", "Esto es fácil": "72e89e3912df.mp3", "Estos perros": "ad8e26fb4df6.mp3", "Estoy cansada": "3cc4b44101dd.mp3", "Estoy cansado": "bd8ddbe92f91.mp3", "Estoy contenta": "d2ca56a74f2c.mp3", "Estoy contento": "f90786e6f24a.mp3", "Estoy de vacaciones": "10e507aef5d6.mp3", "Estoy en casa": "f841c95c2957.mp3", "Estoy perdido": "04701065e2c1.mp3", "Estoy tranquilo": "741af710b859.mp3", "Está cerrado": "12ad2b972404.mp3", "Está delicioso": "dfc3453b29d0.mp3", "Flores": "4560d86ab845.mp3", "Fue maravilloso": "9a8744802b7c.mp3", "Gracias": "d8f750f488f5.mp3", "Hablo un poco de español": "53d5d665fd30.mp3", "Hace calor": "5a132edea181.mp3", "Hasta pronto": "e8f61e648d0c.mp3", "Hay dos habitaciones": "df9b4fdf75b0.mp3", "Hay espacio": "76668c163acb.mp3", "Hay monos": "5cec45224e57.mp3", "Hay mucha lluvia": "c2d1db9d8472.mp3", "Hay un supermercado": "1bc80d11b3e7.mp3", "Hay una catarata": "2ab315434949.mp3", "Hay una farmacia cerca de aquí": "fa105b08a7b0.mp3", "Hola": "4e46dc0969e6.mp3", "Hoy": "565e9824d995.mp3", "Hoy es lunes": "c7c2eb9873c4.mp3", "La calle": "f8836afd3031.mp3", "La cama": "bc2b28cf3f15.mp3", "La camiseta": "5a7a6f4134a9.mp3", "La casa": "c0d8e198c858.mp3", "La catarata": "5073b4f78ed8.mp3", "La chaqueta": "aba3e1496717.mp3", "La cocina": "8bc88fa8288e.mp3", "La computadora": "23fe4d1fde54.mp3", "La cuenta, por favor": "12ef72adf0f4.mp3", "La entrada": "dc8b3235d2c3.mp3", "La falda": "4fc79f7a5181.mp3", "La farmacia": "94e8ae976cb6.mp3", "La jirafa": "5d23e7dd8dd9.mp3", "La letra A": "b97166ad7546.mp3", "La letra E": "66cccf959758.mp3", "La letra I": "ef58be53c64b.mp3", "La letra O": "99e00921b717.mp3", "La letra U": "d1cf52e9d41c.mp3", "La llave": "60aac83b4aba.mp3", "La lluvia": "c5d474668f57.mp3", "La lámpara": "a287e083dabc.mp3", "La mano": "ca2dc5b83098.mp3", "La mesa": "927d5fab250b.mp3", "La playa": "01bfc855c749.mp3", "La puerta": "9c7cf729c441.mp3", "La puerta está abierta": "c7f4e320be26.mp3", "La refrigeradora": "5c46eb8f73b2.mp3", "La sala": "72604fbc96cf.mp3", "La silla": "4aab3b97eed5.mp3", "La terraza": "738dbed9a0ea.mp3", "La ventana": "8f0bf105341e.mp3", "La ventana está cerrada": "f125b05778e1.mp3", "Libros": "f18e5a16fc94.mp3", "Llame a la policía": "db610917e26e.mp3", "Llame a un médico": "9166d40f5906.mp3", "Llueve": "5a34dd775ba7.mp3", "Los zapatos": "c4ae586b868c.mp3", "Mañana es martes": "4c9950e76f2a.mp3", "Mañana por la mañana": "0550574b2b31.mp3", "Me duele aquí": "3a87d7679aee.mp3", "Me llamo Ana": "1c8ca39fb8a0.mp3", "Me lo llevo": "db48b8a285e7.mp3", "Mi abuela": "0a6ffce68dab.mp3", "Mi abuelo": "59d68f98d826.mp3", "Mi casa": "29b7f94e8b44.mp3", "Mi hermana": "b20b8b1bca7b.mp3", "Mi hermano": "fc45e6c07793.mp3", "Mi hija": "e7dafd9804ab.mp3", "Mi hijo": "a1aa4dd9e4d9.mp3", "Mi mamá": "3d8280259fbf.mp3", "Mi nombre empieza con A": "eb95229e6a95.mp3", "Mi papá": "10cc2e6ebbc2.mp3", "Mi teléfono": "3f7cd7f1f915.mp3", "Mis hijos": "6adef148ddee.mp3", "Mis llaves": "8e35ace4e5df.mp3", "Mucho gusto": "5d2b5fb8599c.mp3", "Muy bien": "5fa72e0dc519.mp3", "Más barato": "88f6000f8117.mp3", "Nadar": "3e373d981da4.mp3", "Naranja": "2ac7694229f3.mp3", "Necesito ayuda": "af70f5581554.mp3", "Negro": "db2448eedcab.mp3", "No entiendo": "90aae5f52f5f.mp3", "No hablo inglés": "c75effad616a.mp3", "No hay agua": "0c2e577efdac.mp3", "No hay nadie": "2fd3957d382c.mp3", "No llueve": "8e5280dc8baa.mp3", "No me siento bien": "317b01ea33eb.mp3", "No sé": "b72b52208265.mp3", "No tengo carro": "386db4d20a42.mp3", "No tengo dinero": "ffc48825f625.mp3", "No, gracias": "ec7892f31d71.mp3", "Nosotros": "7fbc0ed4817e.mp3", "Nuestra familia": "53ec1b2cc7c7.mp3", "Nuestro hotel": "35487bf72dba.mp3", "Nunca": "f951a9952b5c.mp3", "Pare aquí": "551f56ea56b1.mp3", "Perdí mi pasaporte": "f22aca4c9c33.mp3", "Por favor": "f2dbb03ad5a9.mp3", "Protector solar": "845ef2a3d0d1.mp3", "Quince": "c053eb2324cb.mp3", "Quisiera pagar": "90cd30754bbe.mp3", "Quisiera reservar": "183ac4691a65.mp3", "Quisiera un jugo": "b5ed7e4ba676.mp3", "Respetemos la naturaleza": "08c2c8b48efd.mp3", "Rojo": "696f81232402.mp3", "Sin azúcar": "07d6278bdb50.mp3", "Solo estoy mirando": "20980636cccd.mp3", "Somos vecinos": "f962b310cca1.mp3", "Son las cuatro y media": "73ab6f3fa43d.mp3", "Son las dos": "7a4e13c80e45.mp3", "Son las ocho menos cuarto": "7d3220ab184a.mp3", "Son las seis y cuarto": "ace93b91b2b3.mp3", "Son las tres": "54f2f0531b5e.mp3", "Soy alérgico": "cd61cb60fbc5.mp3", "Soy costarricense": "afededaef97c.mp3", "Soy estudiante": "798db2b39d79.mp3", "Soy francesa": "0b1562d0e1b6.mp3", "Soy francés": "63b2c40f898b.mp3", "Su carro": "1009bdd4b26c.mp3", "Sus amigos": "9acf15e2d12e.mp3", "Sus hijos": "2197db46c4c4.mp3", "Sí, claro": "45fd2e250dc0.mp3", "Tenemos tiempo": "188abb02fa1a.mp3", "Tengo cuarenta años": "79f48edc12f2.mp3", "Tengo dos hijos": "361d72281ef5.mp3", "Tengo hambre": "ee54964fcc00.mp3", "Tengo sed": "07a6584a5ff3.mp3", "Tengo treinta años": "588912331ded.mp3", "Tengo un carro": "855b8be8aace.mp3", "Tengo una reserva": "44e24f506248.mp3", "Tengo veinte años": "2d5f6ccb86ca.mp3", "Todavía no": "e7d73e4e56e1.mp3", "Todo recto": "1f869bef04b9.mp3", "Tres": "2c1214083a77.mp3", "Tres árboles": "289c8757b000.mp3", "Tu bolso": "fd1a28518224.mp3", "Tus zapatos": "e4857caacd63.mp3", "Tú": "e0b8ada702a2.mp3", "Un animal": "e73a35dfe07e.mp3", "Un boleto": "78ffa61d8ffa.mp3", "Un café": "751c3c850ea2.mp3", "Un carro": "43531524a243.mp3", "Un guía": "df7af835958a.mp3", "Un jardín grande": "afbb44ae341e.mp3", "Un libro": "929c9805ce85.mp3", "Un mono": "b9a1778f2805.mp3", "Un perezoso": "7dd042323f5f.mp3", "Un perro": "26343326edf3.mp3", "Un perro negro": "79c489ab0654.mp3", "Un pueblo tranquilo": "5bf2284e87e1.mp3", "Un recuerdo": "14fdfb1e9078.mp3", "Un sendero": "e79c239ed334.mp3", "Un traje de baño": "84e749f8ca2f.mp3", "Un té": "1261a080d395.mp3", "Un árbol": "446eec04cc8e.mp3", "Una caminata": "a77e526acd6e.mp3", "Una casa": "71519d42522b.mp3", "Una casa blanca": "54dbc60a7e70.mp3", "Una flor": "355a44fac344.mp3", "Una gata": "89c7ac3c3bdd.mp3", "Una gata negra": "67d6bdd17fbe.mp3", "Una habitación": "ef74bd52e8d6.mp3", "Una habitación pequeña": "20a07667234f.mp3", "Una mesa para dos": "2569599bd874.mp3", "Una noche": "ed0f1e54e399.mp3", "Una playa hermosa": "1461e0251b68.mp3", "Una talla más grande": "bb1cab290867.mp3", "Una talla más pequeña": "69c32f0744cd.mp3", "Una toalla": "5c72cb851e7d.mp3", "Uno": "bfab982a401d.mp3", "Usted": "6c54196039e4.mp3", "Usted es el propietario": "0cffbf4112dd.mp3", "Ustedes": "eca034995dd1.mp3", "Veinte": "b0849ec3bf50.mp3", "Vengo de Francia": "ea940f2f8e14.mp3", "Vengo de Quebec": "6b1ef589c345.mp3", "Venimos de Francia": "969476f54cbc.mp3", "Verde": "daba544d2b17.mp3", "Vivo en Costa Rica": "70e547500f3a.mp3", "Vos": "6dbf4f12d568.mp3", "Yo": "98cd3704dd19.mp3", "¡Cuidado!": "517e089c57fb.mp3", "¡Hasta la próxima!": "1d54c602cc36.mp3", "¿A qué hora abren?": "3ace97c13c53.mp3", "¿A qué hora salimos?": "ea944870c7aa.mp3", "¿A qué hora?": "f2449fdf1a97.mp3", "¿Cuál es su nombre?": "76c433a7ca04.mp3", "¿Cuándo sale el bus?": "f3529bcbf9dc.mp3", "¿Cuánto cuesta?": "882e7f82f8dd.mp3", "¿Cuánto?": "c3fdd7931dce.mp3", "¿Cómo estás?": "8ac82e13243b.mp3", "¿Cómo se escribe?": "0be1dfac5ecd.mp3", "¿Cómo se llama usted?": "b71f7a99cc37.mp3", "¿Cómo se siente usted?": "85a2fbff1d7d.mp3", "¿Cómo te llamas?": "f9d4d5f29080.mp3", "¿De dónde viene usted?": "5931b3b6b194.mp3", "¿Dónde está el hospital?": "40c8a593304f.mp3", "¿Dónde está el mercado?": "45ce76152b60.mp3", "¿Dónde está la estación?": "4b2491e3820a.mp3", "¿Dónde está usted?": "a1a236e2fd2f.mp3", "¿Dónde se puede nadar?": "36fe25b89879.mp3", "¿Está abierto?": "1a8fa43ae00a.mp3", "¿Está lejos?": "9d8d304818d2.mp3", "¿Hay animales?": "8de3819e9b4a.mp3", "¿Hay un bus?": "9154f63bedf8.mp3", "¿Hay wifi?": "7cd2b45906ca.mp3", "¿Por qué está cerrado?": "df49bce5685a.mp3", "¿Puede hablar más despacio?": "636772a2dc93.mp3", "¿Puede repetir?": "0ca1321f2e35.mp3", "¿Quién es el guía?": "616447648786.mp3", "¿Quién es usted?": "df46d6a61884.mp3", "¿Qué día es hoy?": "7b05e3c8a8c2.mp3", "¿Qué día es?": "dae88ebb8901.mp3", "¿Qué hora es?": "f9555b50b884.mp3", "¿Qué recomienda?": "dd119ebe6474.mp3", "¿Tiene otra talla?": "e97966e1f50e.mp3", "¿Tienes agua?": "01b9667251c5.mp3", "Él": "060f52206ea5.mp3", "Él es bajo": "9da2325ced92.mp3", "Él es canadiense": "d7533c854377.mp3", "Él es guía": "ee3ff6e06462.mp3", "Él es paciente": "c8ad7ddc1e53.mp3", "Él es rubio": "d83571a47879.mp3", "Él está enfermo": "4bcb178a3195.mp3", "Él tiene barba": "aea5770f772f.mp3", "Él tiene los ojos verdes": "6d7cbfd494c1.mp3", "Él usa anteojos": "c0ddb5a0292f.mp3"};
+let activeAudio=null;
+let spanishVoices=[];
+function discoverSpanishVoices(){
+ if(!('speechSynthesis' in window))return [];
+ spanishVoices=window.speechSynthesis.getVoices().filter(v=>/^es([_-]|$)/i.test(v.lang));
+ return spanishVoices;
+}
+if('speechSynthesis' in window){discoverSpanishVoices();window.speechSynthesis.onvoiceschanged=()=>{discoverSpanishVoices();refreshVoiceStudio();};}
+function pickVoice(gender){
+ const voices=discoverSpanishVoices();
+ if(!voices.length)return null;
+ const chosen=localStorage.getItem('vamos_voice_'+gender);if(chosen){const match=voices.find(v=>v.voiceURI===chosen);if(match)return match;}
+ const female=/paulina|sabina|monica|mónica|lucia|lucía|helena|elena|sofia|sofía|paloma|maria|maría|female|woman|mujer|dalia|isabella|valentina|camila|ximena/i;
+ const male=/jorge|diego|pablo|carlos|raul|raúl|male|man|hombre|alvaro|álvaro|andrés|andres|mateo|enrique|nicolas|nicolás/i;
+ const rank=v=>(/natural|neural|premium|google|microsoft/i.test(v.name)?5:0)+(/es[-_]CR/i.test(v.lang)?6:/es[-_](MX|CO|US|AR|PE)/i.test(v.lang)?4:1);
+ const sorted=[...voices].sort((a,b)=>rank(b)-rank(a));
+ const preferred=sorted.filter(v=>(gender==='f'?female:male).test(v.name));
+ if(preferred.length)return preferred[0];
+ if(sorted.length>1)return gender==='f'?sorted[0]:sorted[1];
+ return sorted[0];
+}
+function refreshVoiceStudio(){
+ const copy=vc();if(!document.getElementById('voiceStudio'))return;
+ $('voiceStudioTitle').textContent=copy.title;$('femaleLabel').textContent=copy.female;$('maleLabel').textContent=copy.male;
+ $('testFemale').textContent=$('testMale').textContent=copy.test;
+ const voices=discoverSpanishVoices();$('voiceStudioStatus').textContent=voices.length===0?copy.none:voices.length===1?copy.one:copy.many;
+ for(const [gender,id] of [['f','femaleVoice'],['m','maleVoice']]){
+  const sel=$(id),old=sel.value;sel.replaceChildren();
+  if(!voices.length){const option=document.createElement('option');option.textContent='—';sel.append(option);sel.disabled=true;continue;}
+  sel.disabled=false;
+  voices.forEach(v=>{const o=document.createElement('option');o.value=v.voiceURI;o.textContent=v.name+' · '+v.lang;sel.append(o);});
+  const selected=localStorage.getItem('vamos_voice_'+gender)||old;
+  const preferred=voices.find(v=>v.voiceURI===selected)||pickVoice(gender)||voices[0];sel.value=preferred.voiceURI;
+ }
+}
+$('femaleVoice').onchange=e=>{localStorage.setItem('vamos_voice_f',e.target.value);};
+$('maleVoice').onchange=e=>{localStorage.setItem('vamos_voice_m',e.target.value);};
+$('testFemale').onclick=()=>speak('Hola, ¿cómo estás? Me alegra verte.',1,'f');
+$('testMale').onclick=()=>speak('Muy bien, gracias. ¿Y tú cómo estás?',1,'m');
+function speak(value,rate=1,gender=null){
+ if(activeAudio){activeAudio.pause();activeAudio=null;}
+ if('speechSynthesis' in window)window.speechSynthesis.cancel();
+ // Dialogue lines request two distinct browser voices when available.
+ if(gender&&pickVoice(gender)){fallbackSpeech(value,rate,gender);return;}
+ const file=recordedAudio[value];
+ if(file){const a=new Audio('audio/'+file);a.playbackRate=rate;activeAudio=a;a.play().catch(()=>fallbackSpeech(value,rate,gender));return;}
+ fallbackSpeech(value,rate,gender);
+}
+function fallbackSpeech(value,rate=1,gender=null){
+ if(!('speechSynthesis' in window)){alert(t('audioError'));return;}
+ window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(value);
+ u.lang='es-CR';u.rate=.93*rate;u.pitch=gender==='f'?1.08:0.95;
+ const voice=pickVoice(gender||'f');if(voice){u.voice=voice;u.lang=voice.lang;}
+ window.speechSynthesis.speak(u);
+}
+
+function addQuestionXP(points=10){
+ const id=current+':'+index;
+ if(!state.rewarded)state.rewarded={};
+ if(state.rewarded[id])return;
+ state.rewarded[id]=points;state.xp+=points;save();render();
+ const badge=document.createElement('strong');badge.className='xpReward';badge.textContent=' ⚡ +'+points+' XP';$('feedback').append(badge);
+}
+function distractors(correct){
+ const local=lessonPool().map(p=>p.es).filter(x=>x!==correct);
+ const wc=x=>x.trim().split(/\s+/).length;
+ local.sort((a,b)=>Math.abs(wc(a)-wc(correct))-Math.abs(wc(b)-wc(correct))||a.localeCompare(b,'es'));
+ const opts=[correct];for(const x of local){if(!opts.includes(x))opts.push(x);if(opts.length===4)break;}
+ if(opts.length<4){for(const l of lessons){if(l.premium&&!estPremium)continue;for(const p of l.pairs){if(!opts.includes(p.es))opts.push(p.es);if(opts.length===4)break;}if(opts.length===4)break;}}
+ return shuffleItems(opts);
+}
+function lessonPair(){
+ if(index>=5&&index<=9)return sceneDialogues[current][index-5];
+ return lessons[current].pairs[index<5?index:index-5];
+}
+function lessonPool(){return [...lessons[current].pairs,...sceneDialogues[current]];}
+function sceneBubble(p){
+ const wrap=document.createElement('div');wrap.className='dialogueBubble'+(p.speaker==='m'?' male':'');
+ const avatar=document.createElement('span');avatar.className='avatar';avatar.textContent=p.speaker==='m'?'👨🏽':'👩🏽';
+ const b=document.createElement('button');b.type='button';b.textContent='🔊 '+p.es;b.setAttribute('aria-label',dc().tap+' '+p.es);b.onclick=()=>speak(p.es,1,p.speaker);
+ wrap.append(avatar,b);return wrap;
+}
+function renderScene(j){
+ const scene=$('dialogueScene');scene.replaceChildren();scene.classList.remove('hidden');
+ const header=document.createElement('div');header.className='sceneTitle';header.textContent=dc().scene+' · '+title(lessons[current]);scene.append(header);
+ if(j===0){const p=document.createElement('div');p.className='dialogueHint';p.textContent=dc().situation+' : '+title(lessons[current]);scene.append(p);}
+ for(let k=Math.max(0,j-2);k<j;k++)scene.append(sceneBubble(sceneDialogues[current][k]));
+ const help=document.createElement('div');help.className='dialogueHint';help.textContent=dc().tap;scene.append(help);
+}
+
+function setQuestionHeader(type){
+ const phase=Math.min(2,Math.floor(index/5));
+ $('meta').textContent=t('mission')+' '+(current+1)+' · '+t('question')+' '+(index+1)+'/'+CHALLENGES_PER_MISSION+' · ❤️ '+hearts+' · 🔥 '+streak;
+ $('missionTrackBar').style.width=((index+1)/CHALLENGES_PER_MISSION*100)+'%';
+ $('challengeStage').textContent=cc().phase[phase]+' · '+type;
+}
+function soundControls(es,showHelp=false,gender=null){
+ const row=document.createElement('div');row.className='soundRow';
+ const normal=document.createElement('button');normal.type='button';normal.className='speech';normal.textContent=cc().play;normal.onclick=()=>speak(es,1,gender);
+ const slow=document.createElement('button');slow.type='button';slow.className='speech';slow.textContent=cc().slow;slow.onclick=()=>speak(es,.72,gender);
+ row.append(normal,slow);$('answers').append(row);
+ if(showHelp){const p=document.createElement('p');p.className='challengeHelp';p.textContent=cc().needSound;$('answers').append(p);}
+}
+function translatedChoices(lesson,correct){
+ const list=[correct];for(let step=1;step<=9&&list.length<4;step++){
+  const x=phrase(lesson.pairs[(index+step*3)%10]);if(!list.includes(x))list.push(x);
+ }
+ return shuffleItems(list);
+}
+function shuffleItems(items){
+ const a=[...items];let seed=(current+1)*199+(index+1)*61;
+ for(let i=a.length-1;i>0;i--){seed=(seed*1664525+1013904223)>>>0;const j=seed%(i+1);[a[i],a[j]]=[a[j],a[i]];}
+ return a;
+}
+function question(){
+ if(!lessons[current]||(lessons[current].premium&&(!estPremium||!lessons[current].pairs?.length))){backToLessons();return;}
+ locked=false;selected=[];questionMistakes=0;
+ const lesson=lessons[current],p=lessonPair(),translated=phrase(p),es=p.es;
+ $('lessonTip').textContent=note(lesson)?t('notePrefix')+note(lesson):'';
+ $('lessonTip').classList.toggle('hidden',!note(lesson));
+ $('feedback').textContent='';$('feedback').className='';$('next').classList.add('hidden');$('answers').replaceChildren();
+ $('next').textContent=t('continue');$('next').onclick=advance;
+ $('dialogueScene').classList.add('hidden');
+ const mode=index;
+ if(mode>=5&&mode<=9){dialogueQuestion(mode-5,p);return;}
+ if(mode===0){setQuestionHeader(cc().types.choice);$('prompt').textContent=t('translate')+' « '+translated+' »';choices(distractors(es),es);soundControls(es);}
+ else if(mode===1){setQuestionHeader(cc().types.listenChoice);$('prompt').textContent=cc().types.listenChoice;soundControls(es,true);choices(translatedChoices(lesson,translated),translated);}
+ else if(mode===2){
+  setQuestionHeader(cc().types.cloze);
+  if(es.trim().split(/\s+/).length<2){$('prompt').textContent=cc().types.write+' « '+translated+' »';typingQuestion(es);}
+  else{const parts=es.split(/\s+/);const missing=parts.pop();$('prompt').textContent=cc().types.cloze+' · '+translated;const hint=document.createElement('div');hint.className='selected';hint.textContent=parts.join(' ')+' _____';$('answers').append(hint);clozeQuestion(missing);}
+ }
+ else if(mode===3){setQuestionHeader(cc().types.order);$('prompt').textContent=cc().types.order+' · « '+translated+' »';if(es.split(/\s+/).length>=2)wordOrder(es);else typingQuestion(es);}
+ else if(mode===4){setQuestionHeader(cc().types.write);$('prompt').textContent=cc().types.write+' · « '+translated+' »';typingQuestion(es);}
+ else if(mode===5){setQuestionHeader(cc().types.dictation);$('prompt').textContent=cc().types.dictation;soundControls(es,true);typingQuestion(es);}
+ else if(mode===6){setQuestionHeader(cc().types.context);$('prompt').textContent=cc().types.context+' « '+translated+' »';typingQuestion(es);}
+ else if(mode===7){setQuestionHeader(cc().types.match);$('prompt').textContent=cc().types.match;matchPairs(lesson);}
+ else if(mode===8){setQuestionHeader(cc().types.meaning);$('prompt').textContent=cc().types.meaning+' · « '+translated+' »';choices(distractors(es),es);}
+ else if(mode===9){setQuestionHeader(cc().types.listenMeaning);$('prompt').textContent=cc().types.listenMeaning;soundControls(es,true);choices(translatedChoices(lesson,translated),translated);}
+ else if(mode===10){setQuestionHeader(cc().types.boss);$('prompt').textContent=cc().types.dictation;soundControls(es,true);typingQuestion(es);}
+ else if(mode===11){setQuestionHeader(cc().types.boss);$('prompt').textContent=cc().types.write+' · « '+translated+' »';typingQuestion(es);}
+ else if(mode===12){setQuestionHeader(cc().types.boss);$('prompt').textContent=cc().types.order+' · « '+translated+' »';if(es.split(/\s+/).length>=2)wordOrder(es);else typingQuestion(es);}
+ else if(mode===13){setQuestionHeader(cc().types.boss);const words=es.split(/\s+/);if(words.length>=2){const missing=words.pop();$('prompt').textContent=cc().types.missing+' · « '+translated+' »';const hint=document.createElement('div');hint.className='selected';hint.textContent=words.join(' ')+' _____';$('answers').append(hint);clozeQuestion(missing);}else{$('prompt').textContent=cc().types.write+' · « '+translated+' »';typingQuestion(es);}}
+ else{setQuestionHeader(cc().types.boss);$('prompt').textContent=cc().types.write+' · « '+translated+' »';typingQuestion(es);}
+}
+function dialogueQuestion(j,p){
+ const es=p.es,translated=phrase(p);
+ renderScene(j);
+ const gender=p.speaker;
+ if(j===0){
+  setQuestionHeader(dc().chooseReply);$('prompt').textContent=dc().yourTurn+' · « '+translated+' »';
+  choices(distractors(es),es);soundControls(es,false,gender);
+ }else if(j===1){
+  setQuestionHeader(dc().chooseReply);$('prompt').textContent=dc().chooseReply+' · « '+translated+' »';
+  choices(distractors(es),es);
+ }else if(j===2){
+  setQuestionHeader(dc().listenReply);$('prompt').textContent=dc().listenReply;
+  soundControls(es,true,gender);
+  const options=[translated];for(const pair of lessonPool()){const txt=phrase(pair);if(!options.includes(txt))options.push(txt);if(options.length>=4)break;}
+  choices(shuffleItems(options),translated);
+ }else if(j===3){
+  setQuestionHeader(dc().rebuild);$('prompt').textContent=dc().rebuild+' · « '+translated+' »';
+  if(es.trim().split(/\s+/).length>1)wordOrder(es);else typingQuestion(es);
+ }else{
+  setQuestionHeader(dc().writeReply);$('prompt').textContent=dc().writeReply+' · « '+translated+' »';
+  typingQuestion(es);
+ }
+}
+
+function choices(opts,answer){
+ opts.forEach(txt=>{const b=document.createElement('button');b.className='answer';b.textContent=txt;b.onclick=()=>evaluate(txt===answer,b,answer);$('answers').append(b);});
+}
+function wordOrder(answer){
+ const tokens=answer.split(/\s+/);const shuffled=shuffleItems(tokens.map((txt,i)=>({txt,i})));
+ if(shuffled.length>1&&shuffled.every((v,i)=>v.i===i))shuffled.reverse();
+ const display=document.createElement('div');display.className='selected';display.textContent=t('chooseWords');$('answers').append(display);
+ const row=document.createElement('div');row.className='wordRow';$('answers').append(row);
+ const buttons=[];
+ shuffled.forEach(o=>{const b=document.createElement('button');b.type='button';b.className='word';b.textContent=o.txt;
+  b.onclick=()=>{if(locked)return;selected.push(o.txt);b.disabled=true;display.textContent=selected.join(' ');
+   if(selected.length===tokens.length){const ok=normalizeAnswer(selected.join(' '))===normalizeAnswer(answer);evaluate(ok,display,answer);if(!ok&&!locked){selected=[];display.textContent=t('chooseWords');buttons.forEach(x=>x.disabled=false);}}};row.append(b);buttons.push(b);
+ });
+ const reset=document.createElement('button');reset.type='button';reset.className='speech';reset.textContent=t('retryPhrase');reset.onclick=()=>{if(locked)return;selected=[];display.textContent=t('chooseWords');buttons.forEach(x=>x.disabled=false);};$('answers').append(reset);
+}
+function matchPairs(lesson){
+ const pairs=[];
+ for(let n=0;n<10&&pairs.length<4;n++){
+  const p=lesson.pairs[(index+n)%10];const src=phrase(p),es=p.es;
+  if(!pairs.some(x=>x.src===src||x.es===es))pairs.push({src,es,id:n});
+ }
+ if(pairs.length<2){typingQuestion(lessonPair().es);return;}
+ const grid=document.createElement('div');grid.className='matchGrid';
+ const left=document.createElement('div');left.className='matchCol';const right=document.createElement('div');right.className='matchCol';grid.append(left,right);$('answers').append(grid);
+ const progress=document.createElement('p');progress.className='challengeHelp';progress.textContent=cc().pairs+': 0/'+pairs.length;$('answers').append(progress);
+ let leftSelected=null,rightSelected=null,matched=0;
+ function select(btn,side,pair){
+  if(locked||btn.disabled)return;
+  if(side==='left'){if(leftSelected)leftSelected.btn.classList.remove('active');leftSelected={btn,pair};}
+  else{if(rightSelected)rightSelected.btn.classList.remove('active');rightSelected={btn,pair};}
+  btn.classList.add('active');
+  if(!leftSelected||!rightSelected)return;
+  const l=leftSelected,r=rightSelected;leftSelected=null;rightSelected=null;
+  l.btn.classList.remove('active');r.btn.classList.remove('active');
+  if(l.pair.id===r.pair.id){l.btn.disabled=true;r.btn.disabled=true;l.btn.classList.add('matched');r.btn.classList.add('matched');matched++;progress.textContent=cc().pairs+': '+matched+'/'+pairs.length;
+   if(matched===pairs.length)evaluate(true,progress,lessonPair().es);
+  }else{l.btn.classList.add('bad');r.btn.classList.add('bad');setTimeout(()=>{l.btn.classList.remove('bad');r.btn.classList.remove('bad');},450);evaluate(false,progress,lessonPair().es);}
+ }
+ shuffleItems(pairs).forEach(pair=>{const b=document.createElement('button');b.type='button';b.textContent=pair.src;b.onclick=()=>select(b,'left',pair);left.append(b);});
+ shuffleItems([...pairs].reverse()).forEach(pair=>{const b=document.createElement('button');b.type='button';b.textContent=pair.es;b.onclick=()=>select(b,'right',pair);right.append(b);});
+}
+function normalizeAnswer(value){return value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[¡!¿?.,]/g,'').trim().replace(/\s+/g,' ').toLowerCase();}
+function typingQuestion(answer){
+ const form=document.createElement('form');form.className='typingForm';
+ const input=document.createElement('input');input.type='text';input.autocomplete='off';input.autocapitalize='off';input.spellcheck=false;input.placeholder=cc().types.write;input.required=true;
+ const btn=document.createElement('button');btn.type='submit';btn.textContent=cc().check;
+ form.append(input,btn);form.onsubmit=e=>{e.preventDefault();if(locked)return;const ok=normalizeAnswer(input.value)===normalizeAnswer(answer);evaluate(ok,btn,answer);if(ok||locked){input.disabled=true;btn.disabled=true;}else{input.focus();input.select();}};$('answers').append(form);
+}
+function clozeQuestion(missing){
+ const form=document.createElement('form');form.className='typingForm';
+ const input=document.createElement('input');input.type='text';input.autocomplete='off';input.autocapitalize='off';input.spellcheck=false;input.placeholder=cc().types.missing;input.required=true;
+ const btn=document.createElement('button');btn.type='submit';btn.textContent=cc().check;
+ form.append(input,btn);form.onsubmit=e=>{e.preventDefault();if(locked)return;const ok=normalizeAnswer(input.value)===normalizeAnswer(missing);evaluate(ok,btn,missing);if(ok||locked){input.disabled=true;btn.disabled=true;}else{input.focus();input.select();}};$('answers').append(form);
+}
+function evaluate(ok,button,answer){
+ if(locked)return;
+ if(ok){
+  locked=true;streak++;button.classList.add('good');$('feedback').className='feedbackGood';$('feedback').textContent='✅ '+cc().perfect+' '+answer;
+  addQuestionXP(questionMistakes===0?10:5);
+  [...$('answers').querySelectorAll('button')].forEach(b=>b.disabled=true);$('next').classList.remove('hidden');
+ }else{
+  questionMistakes++;
+  if(questionMistakes===1){
+   $('feedback').className='feedbackTry';$('feedback').textContent='💡 '+cc().retry;
+   if(button.classList?.contains('answer')){button.disabled=true;button.classList.add('bad');}
+   return;
+  }
+  locked=true;streak=0;hearts=Math.max(0,hearts-1);
+  $('feedback').className='feedbackBad';$('feedback').textContent='❌ '+cc().wrong+' '+answer+' · ❤️ '+hearts;
+  [...$('answers').querySelectorAll('button')].forEach(b=>b.disabled=true);$('next').classList.remove('hidden');
+  if(hearts<=0){$('feedback').textContent=t('outHearts')+' '+cc().wrong+' '+answer;$('next').textContent=t('retry');$('next').onclick=()=>start(current);}
+ }
+}
+function advance(){
+ if(lessons[current]?.premium&&!estPremium){backToLessons();return;}
+ index++;
+ if(index>=CHALLENGES_PER_MISSION){
+  const first=!state.done[current];state.done[current]=true;save();render();
+  envoyerProgression();$('quiz').classList.add('hidden');$('lessonsArea').classList.remove('hidden');
+  alert(t('completed')+' '+cc().completion+' '+(first?cc().earn:cc().replay));$('lessonsArea').scrollIntoView({behavior:'smooth'});
+ }else question();
+}
+function backToLessons(){current=-1;$('quiz').classList.add('hidden');$('lessonsArea').classList.remove('hidden');render();$('lessonsArea').scrollIntoView({behavior:'smooth'});}
+$('backToLessons').onclick=backToLessons;$('next').onclick=advance;
+document.querySelectorAll('[data-lang]').forEach(button=>{button.onclick=()=>setLanguage(button.dataset.lang);});
+// The previous Wix Premium message bridge has been disabled to prevent bypassing server validation.
+window.addEventListener('message',event=>{
+ if(event.source!==window.parent||event.origin!==window.location.origin)return;
+ const message=event.data;
+ if(message?.type==='VAMOS_PROGRESSION'&&message.progression){
+  const p=message.progression;if((p.langueInterface||'fr')!==lang)return;
+  state.done=p.done&&typeof p.done==='object'?p.done:{};state.xp=Number(p.xp)||0;state.rewarded=p.rewarded||{};
+  save();render();
+ }
+});
+function envoyerProgression(){
+ if(window.parent===window)return;
+ window.parent.postMessage({type:'VAMOS_SAVE',progression:{done:state.done,xp:state.xp,rewarded:state.rewarded,missionsReussies:finished(),missionActuelle:Math.min(lessons.length,finished()+1),niveau:'A1',langueInterface:lang}},'*');
+}
+$('premiumCodeForm').addEventListener('submit',event=>{event.preventDefault();activatePremium();});
+setLanguage(lang);
+restorePremium();
+if(window.parent!==window){
+ window.parent.postMessage({type:'VAMOS_READY'},'*');
+ let essaisPremium=0;
+ const attentePremium=setInterval(()=>{
+  if(typeof window.estPremium==='boolean'||essaisPremium>=10){clearInterval(attentePremium);return;}
+  window.parent.postMessage({type:'VAMOS_READY'},'*');essaisPremium++;
+ },1500);
+}
+</script><script>if ("serviceWorker" in navigator && location.protocol === "https:") { window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(console.warn)); }</script></body></html>

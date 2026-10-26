@@ -1,0 +1,46 @@
+¡VAMOS ESPAÑOL! V6 — CÓDIGOS PREMIUM PERSONALES
+
+Esta versión es un proyecto Netlify completo (web + funciones privadas).
+NO lo publiques con Netlify Drop: el simple arrastrar y soltar NO instala las funciones.
+NO reemplaces la web principal hasta comprobar los códigos en una dirección de prueba.
+
+QUÉ INCLUYE
+- 35 misiones: 10 gratis + 25 Premium.
+- Voces, diálogos y XP de la versión V5.
+- Generación de un código único por cliente desde /admin.html.
+- Validación del código en el servidor; las lecciones Premium no están en el HTML público.
+- Hasta 3 dispositivos por código, acceso de por vida mientras el código esté activo.
+- Panel para ver clientes, desactivar códigos y liberar dispositivos.
+- No incluye cobro online ni envío automático de emails: entrega el código manualmente después de recibir el pago de 29 USD.
+
+PUBLICACIÓN CORRECTA
+Opción recomendada: conectar un repositorio GitHub con los archivos de este ZIP a un NUEVO sitio Netlify de prueba.
+Netlify detecta netlify.toml, instala la dependencia @netlify/blobs y publica las funciones.
+Alternativa para usuarios técnicos: usar Netlify CLI con 'npm install', 'netlify login', 'netlify link' y 'netlify deploy --build --prod'.
+
+CONFIGURAR DOS VARIABLES SECRETAS EN NETLIFY
+En Project configuration > Environment variables, añadir:
+VAMOS_ADMIN_SECRET = contraseña aleatoria larga, exclusiva, mínimo 32 caracteres.
+VAMOS_TOKEN_SECRET = otra clave aleatoria diferente, mínimo 32 caracteres.
+NO escribir las claves en index.html, netlify.toml, GitHub ni compartirlas por chat.
+Volver a desplegar el proyecto después de guardar las variables.
+
+COMPROBAR
+1. Visita https://TU-SITIO.netlify.app/admin.html
+2. Introduce tu contraseña de administración y un nombre/referencia del cliente.
+3. Pulsa Generar código. COPIA el código en ese momento: no se vuelve a mostrar.
+4. En la web principal, pega el código y pulsa Activar.
+5. Comprueba las misiones 11 a 35. Prueba recargar la página.
+6. Si el cliente cambia de teléfono, desde /admin.html usa Liberar dispositivos.
+
+SEGURIDAD Y LÍMITES
+- Cada código es diferente y se almacena solo su hash SHA-256, no el texto del código.
+- Los contenidos Premium se sirven desde una función privada después de validar el acceso.
+- Un código puede usarse en hasta 3 navegadores/dispositivos.
+- Los códigos pueden compartirse entre personas dentro de ese límite; sin identidad verificada no se puede impedir totalmente.
+- No es un sistema de pago ni una prueba automática de compra.
+- No se sincronizan los XP entre dispositivos (se guardan en cada navegador).
+- Se necesita Internet para comprobar el acceso Premium al abrir la aplicación.
+- Los audios existentes siguen siendo los de V5 y las voces de diálogos dependen del dispositivo.
+- Si se borra la memoria del navegador, puede contar como un dispositivo nuevo.
+- Para una plataforma de alto volumen, se recomienda una base de datos transaccional y autenticación de usuarios.
